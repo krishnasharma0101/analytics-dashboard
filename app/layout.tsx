@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import DashboardShell from "@/components/DashboardShell";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,9 +13,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ayuntamiento de Madrid | Analytics Dashboard",
+  title: "City of Madrid | Analytics Dashboard",
   description:
-    "Municipal analytics platform for the Ayuntamiento de Madrid. Monitor citizen data, business metrics, and AI-powered insights.",
+    "Municipal analytics platform for the City of Madrid. Monitor citizen data, business metrics, and AI-powered insights.",
 };
 
 export default function RootLayout({
@@ -21,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)}>
       <body className="min-h-full">
         <DashboardShell>{children}</DashboardShell>
       </body>

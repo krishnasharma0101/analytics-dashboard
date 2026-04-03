@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Settings, Bell, User } from "lucide-react";
+import { Bell, Command, Settings, User } from "lucide-react";
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -10,161 +10,75 @@ interface HeaderProps {
 export default function Header({ onMenuClick, isSidebarCollapsed }: HeaderProps) {
   return (
     <header
-      className="sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 lg:px-8"
+      className="sticky top-0 z-30 flex items-center justify-between px-8 border-b border-slate-200/60 transition-all duration-500 ease-in-out"
       style={{
-        height: "72px",
-        background: "rgba(255, 255, 255, 0.85)",
-        backdropFilter: "blur(16px) saturate(180%)",
-        borderBottom: "1px solid var(--header-border)",
-        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.03)",
+        height: "80px",
+        background: "rgba(255, 255, 255, 0.8)",
+        backdropFilter: "blur(24px) contrast(110%)",
       }}
     >
-      {/* Left section */}
-      <div className="flex items-center gap-4">
-        {/* Mobile menu toggle */}
+      {/* Context Area */}
+      <div className="flex items-center gap-6">
+        {/* Burger Button (Mobile Only) */}
         <button
           onClick={onMenuClick}
-          className="lg:hidden flex items-center justify-center rounded-lg p-2 transition-all duration-200 cursor-pointer"
-          style={{
-            color: "var(--text-secondary)",
-            background: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--accent-gradient-subtle)";
-            e.currentTarget.style.color = "var(--primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
-          aria-label="Toggle menu"
+          className="lg:hidden flex items-center justify-center rounded-xl p-2.5 transition-all bg-slate-100 text-slate-600 hover:bg-slate-200"
         >
-          <Menu size={22} />
+          <Command size={20} />
         </button>
 
-        {/* Page title / Breadcrumb area */}
-        <div>
-          <h2
-            className="text-base sm:text-lg font-semibold"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Ayuntamiento de{" "}
-            <span
-              style={{
-                background: "var(--accent-gradient)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Madrid
-            </span>
-          </h2>
-          <p
-            className="text-xs hidden sm:block"
-            style={{ color: "var(--text-muted)", marginTop: "2px" }}
-          >
-            Municipal Analytics Dashboard
-          </p>
+        {/* Clean Breadcrumb Hierarchy */}
+        <div className="flex items-center gap-2 group cursor-default">
+          <span className="text-[13px] font-bold text-slate-900 uppercase tracking-widest leading-none">
+            City Hall
+          </span>
+          <div className="w-1 h-1 rounded-full bg-slate-300" />
+          <span className="text-[13px] font-medium text-slate-400 group-hover:text-blue-500 transition-colors uppercase tracking-widest leading-none">
+            Madrid
+          </span>
         </div>
       </div>
 
-      {/* Right section - Actions */}
-      <div className="flex items-center gap-1 sm:gap-2">
-        {/* Notifications */}
+      {/* Control Area */}
+      <div className="flex items-center gap-4">
+        {/* Global Search / Command Hub */}
         <button
-          className="relative flex items-center justify-center rounded-lg p-2.5 transition-all duration-200 cursor-pointer"
-          style={{
-            color: "var(--text-secondary)",
-            background: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#f1f5f9";
-            e.currentTarget.style.color = "var(--primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
-          aria-label="Notifications"
+          className="hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-100 border border-slate-200/60 transition-all hover:bg-white hover:shadow-sm group w-48"
+          aria-label="Search"
         >
-          <Bell size={19} />
-          {/* Notification badge */}
-          <span
-            className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
-            style={{
-              background: "#ef4444",
-              boxShadow: "0 0 0 2px white",
-            }}
-          />
+          <Command size={14} className="text-slate-400 group-hover:text-blue-500 transition-colors" />
+          <span className="flex-1 text-left text-[12px] font-semibold text-slate-400 group-hover:text-slate-500 transition-colors leading-none">Search ...</span>
+          <span className="hidden md:block text-[10px] font-black text-slate-300 group-hover:text-slate-400 transition-colors uppercase leading-none">⌘K</span>
         </button>
 
-        {/* Settings */}
-        <button
-          className="flex items-center justify-center rounded-lg p-2.5 transition-all duration-200 cursor-pointer"
-          style={{
-            color: "var(--text-secondary)",
-            background: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#f1f5f9";
-            e.currentTarget.style.color = "var(--primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
-          aria-label="Settings"
-        >
-          <Settings size={19} />
-        </button>
+        {/* Actions Button Cluster */}
+        <div className="flex items-center gap-2 px-1.5 py-1.5 rounded-2xl bg-white border border-slate-200/60 shadow-sm">
+           <button
+             className="relative flex items-center justify-center w-9 h-9 rounded-xl transition-all text-slate-500 hover:text-blue-600 hover:bg-blue-50/50 group"
+             aria-label="Notifications"
+           >
+             <Bell size={18} strokeWidth={2.2} />
+             <span className="absolute top-[8px] right-[8px] w-2 h-2 rounded-full bg-blue-500 border-2 border-white ring-2 ring-blue-500/20" />
+           </button>
+           <div className="w-px h-5 bg-slate-100" />
+           <button
+             className="flex items-center justify-center w-9 h-9 rounded-xl transition-all text-slate-500 hover:text-slate-900 hover:bg-slate-50"
+             aria-label="Settings"
+           >
+             <Settings size={18} strokeWidth={2.2} />
+           </button>
+        </div>
 
-        {/* Divider */}
-        <div
-          className="hidden sm:block w-px h-8 mx-1"
-          style={{ background: "#e2e8f0" }}
-        />
-
-        {/* User profile */}
-        <button
-          className="flex items-center gap-2.5 rounded-xl py-1.5 pl-1.5 pr-3 transition-all duration-200 cursor-pointer"
-          style={{
-            background: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#f1f5f9";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-          }}
-          aria-label="User profile"
-        >
-          <div
-            className="flex items-center justify-center rounded-lg"
-            style={{
-              width: "34px",
-              height: "34px",
-              background: "var(--accent-gradient)",
-              boxShadow: "0 2px 8px rgba(29, 78, 216, 0.25)",
-            }}
-          >
-            <User size={17} color="#ffffff" strokeWidth={2} />
+        {/* Admin Avatar Unit */}
+        <div className="flex items-center gap-2.5 group cursor-pointer">
+          <div className="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center border-2 border-white shadow-md ring-1 ring-slate-200 transition-transform group-hover:scale-105">
+            <User size={16} color="#fff" strokeWidth={2.5} />
           </div>
-          <div className="hidden sm:block text-left">
-            <p
-              className="text-sm font-medium leading-none"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Admin
-            </p>
-            <p
-              className="text-xs mt-0.5"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Alcalde
-            </p>
+          <div className="hidden xl:block overflow-hidden max-w-[120px]">
+            <p className="text-[12px] font-black text-slate-900 leading-tight truncate">Mayor Admin</p>
+            <p className="text-[10px] text-emerald-500 font-bold mt-0.5 uppercase tracking-tighter truncate">Verified User</p>
           </div>
-        </button>
+        </div>
       </div>
     </header>
   );
