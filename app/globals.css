@@ -146,6 +146,24 @@
     0 20px 30px -10px rgba(15, 23, 42, 0.06);
 }
 
+/* ── Glass card for analytics panels ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.04),
+    0 4px 6px -1px rgba(15, 23, 42, 0.03);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.glass-card:hover {
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.04),
+    0 10px 15px -3px rgba(15, 23, 42, 0.06);
+}
+
 /* ── Animations ── */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
