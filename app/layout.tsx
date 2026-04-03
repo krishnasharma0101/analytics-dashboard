@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import DashboardShell from "@/components/DashboardShell";
-import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -24,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)}>
-      <body className="min-h-full">
-        <DashboardShell>{children}</DashboardShell>
+    <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
+      <body className="min-h-full font-sans">
+        <TooltipProvider>
+          <DashboardShell>{children}</DashboardShell>
+        </TooltipProvider>
       </body>
     </html>
   );
