@@ -8,6 +8,7 @@ import {
   BarChart3,
   UserCircle,
   MessageSquare,
+  Settings,
   ShieldCheck,
   Zap,
   ChevronsUpDown,
@@ -37,6 +38,7 @@ const navItems = [
   { label: "Business Analytics", href: "/analytics/business", icon: BarChart3 },
   { label: "Demographics", href: "/analytics/people", icon: UserCircle },
   { label: "AI Insights", href: "/ai-chatbot", icon: MessageSquare, badge: "NEW" },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Bell, Search, Settings, User } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -37,9 +38,9 @@ export default function Header() {
         </Button>
 
         {/* Settings */}
-        <Button variant="ghost" size="icon">
+        <Link href="/settings" className="inline-flex items-center justify-center w-9 h-9 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
           <Settings className="w-4 h-4" />
-        </Button>
+        </Link>
 
         <Separator orientation="vertical" className="h-6 hidden sm:block" />
 
