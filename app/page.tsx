@@ -381,7 +381,7 @@ export default function DashboardPage() {
                       width: "32px", height: "32px", borderRadius: "8px",
                       background: `${act.color}12`, border: `1px solid ${act.color}20`,
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      shrink: 0,
+                      flexShrink: 0,
                     }}
                   >
                     <Icon size={14} style={{ color: act.color }} />

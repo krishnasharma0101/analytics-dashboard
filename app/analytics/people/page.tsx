@@ -391,7 +391,7 @@ export default function CitizensPage() {
                 </span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", truncate: true }}>
+                    <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {d.name}
                     </span>
                     <span style={{ fontSize: "12px", color: "var(--text-secondary)", fontWeight: 500 }}>
