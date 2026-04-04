@@ -97,18 +97,18 @@ const KPI_CARDS = [
 
 // Monthly trend data (last 12 months)
 const MONTHLY_TREND = [
-  { month: "Apr", citizens: 154, businesses: 4800, revenue: 38 },
-  { month: "May", citizens: 154, businesses: 4850, revenue: 42 },
-  { month: "Jun", citizens: 155, businesses: 4880, revenue: 48 },
-  { month: "Jul", citizens: 155, businesses: 4920, revenue: 52 },
-  { month: "Aug", citizens: 155, businesses: 4890, revenue: 55 },
-  { month: "Sep", citizens: 155, businesses: 4950, revenue: 45 },
-  { month: "Oct", citizens: 156, businesses: 5010, revenue: 48 },
-  { month: "Nov", citizens: 156, businesses: 5040, revenue: 42 },
-  { month: "Dec", citizens: 156, businesses: 5060, revenue: 58 },
-  { month: "Jan", citizens: 156, businesses: 5070, revenue: 50 },
-  { month: "Feb", citizens: 156, businesses: 5080, revenue: 48 },
-  { month: "Mar", citizens: 156, businesses: 5089, revenue: 62 },
+  { month: "apr", citizens: 154, businesses: 4800, revenue: 38 },
+  { month: "may", citizens: 154, businesses: 4850, revenue: 42 },
+  { month: "jun", citizens: 155, businesses: 4880, revenue: 48 },
+  { month: "jul", citizens: 155, businesses: 4920, revenue: 52 },
+  { month: "aug", citizens: 155, businesses: 4890, revenue: 55 },
+  { month: "sep", citizens: 155, businesses: 4950, revenue: 45 },
+  { month: "oct", citizens: 156, businesses: 5010, revenue: 48 },
+  { month: "nov", citizens: 156, businesses: 5040, revenue: 42 },
+  { month: "dec", citizens: 156, businesses: 5060, revenue: 58 },
+  { month: "jan", citizens: 156, businesses: 5070, revenue: 50 },
+  { month: "feb", citizens: 156, businesses: 5080, revenue: 48 },
+  { month: "mar", citizens: 156, businesses: 5089, revenue: 62 },
 ];
 
 const DISTRICT_OVERVIEW = [
@@ -136,10 +136,10 @@ const RECENT_ACTIVITY = [
 ];
 
 const QUICK_LINKS = [
-  { label: "Citizen Records", description: "View demographics & records", icon: Users, href: "/citizens", color: "#1d4ed8", bg: "rgba(29,78,216,0.08)" },
-  { label: "Business Analytics", description: "Revenue & sector insights", icon: BarChart3, href: "/analytics/business", color: "#7c3aed", bg: "rgba(124,58,237,0.08)" },
-  { label: "People Analytics", description: "Population & age data", icon: Activity, href: "/analytics/people", color: "#0891b2", bg: "rgba(8,145,178,0.08)" },
-  { label: "AI Intelligence", description: "Ask questions about data", icon: MessageSquare, href: "/ai-chatbot", color: "#059669", bg: "rgba(5,150,105,0.08)" },
+  { label: "citizen_records", description: "demographics_desc", icon: Users, href: "/citizens", color: "#1d4ed8", bg: "rgba(29,78,216,0.08)" },
+  { label: "business_analytics", description: "economic_desc", icon: BarChart3, href: "/analytics/business", color: "#7c3aed", bg: "rgba(124,58,237,0.08)" },
+  { label: "people_analytics", description: "population_desc", icon: Activity, href: "/analytics/people", color: "#0891b2", bg: "rgba(8,145,178,0.08)" },
+  { label: "ai_intelligence", description: "ai_intelligence_desc", icon: MessageSquare, href: "/ai-chatbot", color: "#059669", bg: "rgba(5,150,105,0.08)" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -313,6 +313,7 @@ export default function DashboardPage() {
                     axisLine={false}
                     tickLine={false}
                     tick={{ fontSize: 10, fill: "var(--text-muted)", fontWeight: 500 }}
+                    tickFormatter={t}
                     dy={10}
                   />
                   <YAxis
@@ -334,7 +335,7 @@ export default function DashboardPage() {
                             }}
                           >
                             <p style={{ fontSize: "11px", fontWeight: 700, color: "var(--text-muted)", marginBottom: "4px" }}>
-                              {payload[0].payload.month}
+                              {t(payload[0].payload.month)}
                             </p>
                             <p style={{ fontSize: "14px", fontWeight: 800, color: "#1d4ed8" }}>
                               €{payload[0].value}M

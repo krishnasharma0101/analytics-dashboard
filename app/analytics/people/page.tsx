@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   Users,
   UserPlus,
@@ -107,7 +108,7 @@ const CITIZENS_TABLE = [
   { id: "C-01247", name: "Pablo Castro Navarro", district: "Fuencarral-El Pardo", age: 19, status: "Pending", registered: "10 Mar 2025" },
 ];
 
-const TABS = ["All", "Active", "Inactive", "Pending"];
+const TABS = ["all", "active", "inactive", "pending"];
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   Active: { bg: "rgba(5,150,105,0.1)", text: "#059669" },
@@ -117,8 +118,15 @@ const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function CitizensPage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("all");
   const [sortField, setSortField] = useState<"name" | "age" | "district" | "registered">("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -130,7 +138,7 @@ export default function CitizensPage() {
   const filtered = useMemo(() => {
     return CITIZENS_TABLE
       .filter((c) => {
-        const matchTab = activeTab === "All" || c.status === activeTab;
+        const matchTab = activeTab === "all" || c.status.toLowerCase() === activeTab;
         const matchSearch =
           search === "" ||
           c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -183,11 +191,11 @@ export default function CitizensPage() {
               <Users size={18} color="#fff" />
             </div>
             <h1 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-              Citizen Collection
+              {t("citizen_demographics")}
             </h1>
           </div>
           <p style={{ fontSize: "14px", color: "var(--text-muted)", marginLeft: "46px" }}>
-            Manage and monitor all registered citizens across Madrid's 21 districts
+            {t("census_registered")}
           </p>
         </div>
 
@@ -203,7 +211,7 @@ export default function CitizensPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#f8fafc")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "#fff")}
           >
-            <RefreshCw size={14} /> Refresh
+            <RefreshCw size={14} /> {t("sync_data")}
           </button>
           <button
             style={{
@@ -217,7 +225,7 @@ export default function CitizensPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
           >
-            <Download size={14} /> Export CSV
+            <Download size={14} /> {t("export_csv")}
           </button>
         </div>
       </div>
@@ -267,10 +275,10 @@ export default function CitizensPage() {
                 {k.value}
               </p>
               <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginTop: "4px" }}>
-                {k.label}
+                {t(k.id === "total" ? "total_citizens" : k.id === "registered" ? "registered_users" : k.id === "new" ? "new_registrations" : "municipalities_covered")}
               </p>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                {k.sub}
+                {t(k.id === "total" ? "vs_last_year" : k.id === "registered" ? "vs_last_month" : k.id === "new" ? "vs_previous_month" : "full_coverage")}
               </p>
             </div>
           );
@@ -292,10 +300,10 @@ export default function CitizensPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Age Distribution
+                {t("age_distribution")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Citizen breakdown by age group
+                {t("demographics_overview")}
               </p>
             </div>
             <ArrowUpRight size={16} style={{ color: "var(--text-muted)" }} />
@@ -310,7 +318,7 @@ export default function CitizensPage() {
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <Icon size={13} style={{ color: g.color }} />
                       <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)" }}>
-                        {g.label} years
+                        {g.label} {t("years")}
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -356,10 +364,10 @@ export default function CitizensPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                District Population
+                {t("district_population")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Top 12 of 21 districts by population
+                {t("full_coverage")}
               </p>
             </div>
             <Building2 size={15} style={{ color: "var(--text-muted)" }} />
@@ -425,10 +433,10 @@ export default function CitizensPage() {
         <div className="glass-card" style={{ padding: "24px", gridColumn: "3" }}>
           <div style={{ marginBottom: "22px" }}>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Gender Split
+              {t("gender_split")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              Population by gender
+              {t("performance")}
             </p>
           </div>
 
@@ -516,10 +524,10 @@ export default function CitizensPage() {
         >
           <div>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Citizen Records
+              {t("citizen_records")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              {filtered.length} record{filtered.length !== 1 ? "s" : ""} found
+              {mounted ? filtered.length.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"} {t("records_found")}
             </p>
           </div>
 
@@ -536,7 +544,7 @@ export default function CitizensPage() {
               />
               <input
                 type="text"
-                placeholder="Search by name, ID or district…"
+                placeholder={t("search_placeholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
@@ -564,7 +572,7 @@ export default function CitizensPage() {
                 color: "var(--text-secondary)", fontSize: "13px", fontWeight: 500, cursor: "pointer",
               }}
             >
-              <Filter size={13} /> Filter
+              <Filter size={13} /> {t("filter")}
             </button>
           </div>
         </div>
@@ -594,7 +602,7 @@ export default function CitizensPage() {
                 transition: "color 0.2s, border-color 0.2s",
               }}
             >
-              {tab}
+              {t(tab)}
               <span
                 style={{
                   marginLeft: "6px",
@@ -622,11 +630,11 @@ export default function CitizensPage() {
                 {(
                   [
                     { key: "id", label: "ID", sortable: false },
-                    { key: "name", label: "Name", sortable: true },
-                    { key: "district", label: "District", sortable: true },
-                    { key: "age", label: "Age", sortable: true },
-                    { key: "status", label: "Status", sortable: false },
-                    { key: "registered", label: "Registered", sortable: true },
+                    { key: "name", label: t("name"), sortable: true },
+                    { key: "district", label: t("municipalities"), sortable: true },
+                    { key: "age", label: t("age"), sortable: true },
+                    { key: "status", label: t("status"), sortable: false },
+                    { key: "registered", label: t("last_updated"), sortable: true },
                     { key: "actions", label: "", sortable: false },
                   ] as { key: string; label: string; sortable: boolean }[]
                 ).map((col) => (

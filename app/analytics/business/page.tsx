@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   BarChart3,
   TrendingUp,
@@ -112,7 +113,7 @@ const BUSINESSES_TABLE = [
   { id: "B-11573", name: "Abogados Martín & Co.", sector: "Professional Services", district: "Fuencarral-El Pardo", revenue: "€560K", employees: 14, status: "Pending", license: "1 Mar 2025" },
 ];
 
-const TABS = ["All", "Active", "Pending", "Suspended"];
+const TABS = ["all", "active", "pending", "suspended"];
 
 const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   Active: { bg: "rgba(5,150,105,0.1)", text: "#059669" },
@@ -122,8 +123,15 @@ const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function BusinessAnalyticsPage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("all");
   const [sortField, setSortField] = useState<"name" | "sector" | "district" | "employees">("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -135,7 +143,7 @@ export default function BusinessAnalyticsPage() {
   const filtered = useMemo(() => {
     return BUSINESSES_TABLE
       .filter((b) => {
-        const matchTab = activeTab === "All" || b.status === activeTab;
+        const matchTab = activeTab === "all" || b.status.toLowerCase() === activeTab;
         const matchSearch =
           search === "" ||
           b.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -189,11 +197,11 @@ export default function BusinessAnalyticsPage() {
               <BarChart3 size={18} color="#fff" />
             </div>
             <h1 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-              Business Analytics
+              {t("business_analytics")}
             </h1>
           </div>
           <p style={{ fontSize: "14px", color: "var(--text-muted)", marginLeft: "46px" }}>
-            Track commercial activity, licensing, and economic performance across all districts
+            {t("census_registered")}
           </p>
         </div>
 
@@ -209,7 +217,7 @@ export default function BusinessAnalyticsPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#f8fafc")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "#fff")}
           >
-            <RefreshCw size={14} /> Refresh
+            <RefreshCw size={14} /> {t("sync_data")}
           </button>
           <button
             style={{
@@ -223,7 +231,7 @@ export default function BusinessAnalyticsPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
           >
-            <Download size={14} /> Export Report
+            <Download size={14} /> {t("export_csv")}
           </button>
         </div>
       </div>
@@ -273,10 +281,10 @@ export default function BusinessAnalyticsPage() {
                 {k.value}
               </p>
               <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginTop: "4px" }}>
-                {k.label}
+                {t(k.id === "total" ? "total_businesses" : k.id === "revenue" ? "total_revenue" : k.id === "licenses" ? "active_licenses" : "new_registrations")}
               </p>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                {k.sub}
+                {t(k.id === "total" ? "vs_last_year" : k.id === "revenue" ? "annual_estimate" : k.id === "licenses" ? "currently_valid" : "this_quarter")}
               </p>
             </div>
           );
@@ -298,10 +306,10 @@ export default function BusinessAnalyticsPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Sector Breakdown
+                {t("sector_breakdown")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Businesses by industry sector
+                {t("businesses_by_sector")}
               </p>
             </div>
             <ArrowUpRight size={16} style={{ color: "var(--text-muted)" }} />
@@ -362,10 +370,10 @@ export default function BusinessAnalyticsPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Revenue by District
+                {t("revenue_by_district")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Top 12 districts by annual revenue (€M)
+                {t("annual_revenue_report")}
               </p>
             </div>
             <Building2 size={15} style={{ color: "var(--text-muted)" }} />
@@ -431,10 +439,10 @@ export default function BusinessAnalyticsPage() {
         <div className="glass-card" style={{ padding: "24px", gridColumn: "3" }}>
           <div style={{ marginBottom: "22px" }}>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Business Size
+              {t("business_size")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              By employee count
+              {t("by_employee_count")}
             </p>
           </div>
 
@@ -533,10 +541,10 @@ export default function BusinessAnalyticsPage() {
         >
           <div>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Business Directory
+              {t("business_directory")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              {filtered.length} record{filtered.length !== 1 ? "s" : ""} found
+              {mounted ? filtered.length.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"} {t("records_found")}
             </p>
           </div>
 
@@ -553,7 +561,7 @@ export default function BusinessAnalyticsPage() {
               />
               <input
                 type="text"
-                placeholder="Search by name, ID, sector…"
+                placeholder={t("search_placeholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
@@ -581,7 +589,7 @@ export default function BusinessAnalyticsPage() {
                 color: "var(--text-secondary)", fontSize: "13px", fontWeight: 500, cursor: "pointer",
               }}
             >
-              <Filter size={13} /> Filter
+              <Filter size={13} /> {t("filter")}
             </button>
           </div>
         </div>
@@ -611,7 +619,7 @@ export default function BusinessAnalyticsPage() {
                 transition: "color 0.2s, border-color 0.2s",
               }}
             >
-              {tab}
+              {t(tab)}
               <span
                 style={{
                   marginLeft: "6px",

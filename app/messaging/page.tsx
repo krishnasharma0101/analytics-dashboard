@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   MessageCircle,
   Users,
@@ -97,6 +98,13 @@ const RECENT_CAMPAIGNS = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function WhatsAppMessengerPage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Audience
   const [audienceType, setAudienceType] = useState<AudienceType>("citizens");
   const [filters, setFilters] = useState<AudienceFilter[]>([]);
@@ -183,11 +191,11 @@ export default function WhatsAppMessengerPage() {
               <MessageCircle size={18} color="#fff" />
             </div>
             <h1 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-              WhatsApp Messenger
+              {t("whatsapp_messenger")}
             </h1>
           </div>
           <p style={{ fontSize: "14px", color: "var(--text-muted)", marginLeft: "46px" }}>
-            Send targeted announcements and polls to citizens and businesses via WhatsApp
+            {t("whatsapp_desc")}
           </p>
         </div>
       </div>
@@ -203,18 +211,18 @@ export default function WhatsAppMessengerPage() {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
               <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "linear-gradient(135deg,#1d4ed8,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: "#fff" }}>1</div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Select Audience
+                {t("select_audience")}
               </h2>
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginLeft: "30px", marginBottom: "20px" }}>
-              Choose who will receive this message
+              {t("audience_desc")}
             </p>
 
             {/* Audience type toggle */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "20px" }}>
               {([
-                { id: "citizens" as const, label: "Citizens", icon: Users, count: "3.3M", color: "#1d4ed8" },
-                { id: "businesses" as const, label: "Businesses", icon: Store, count: "48.4K", color: "#7c3aed" },
+                { id: "citizens" as const, label: t("residents"), icon: Users, count: t("citizens_count"), color: "#1d4ed8" },
+                { id: "businesses" as const, label: t("business_analytics"), icon: Store, count: t("businesses_count"), color: "#7c3aed" },
               ]).map((a) => {
                 const Icon = a.icon;
                 const isSelected = audienceType === a.id;
@@ -236,7 +244,7 @@ export default function WhatsAppMessengerPage() {
                     </div>
                     <div style={{ textAlign: "left" }}>
                       <p style={{ fontSize: "14px", fontWeight: 600, color: isSelected ? a.color : "var(--text-primary)" }}>{a.label}</p>
-                      <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>{a.count} total</p>
+                      <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>{a.count}</p>
                     </div>
                     {isSelected && (
                       <div style={{ marginLeft: "auto", width: "20px", height: "20px", borderRadius: "50%", background: a.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -252,9 +260,9 @@ export default function WhatsAppMessengerPage() {
             <div style={{ padding: "16px", borderRadius: "10px", background: "#f8fafc", border: "1px solid rgba(226,232,240,0.7)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "12px" }}>
                 <Filter size={13} style={{ color: "var(--text-muted)" }} />
-                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)" }}>Target Filters</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)" }}>{t("target_filters")}</span>
                 <span style={{ fontSize: "11px", color: "var(--text-muted)", marginLeft: "auto" }}>
-                  {filters.length === 0 ? "No filters — sending to all" : `${filters.length} filter${filters.length > 1 ? "s" : ""} applied`}
+                  {filters.length === 0 ? t("no_filters") : `${filters.length} ${t("filters_applied")}`}
                 </span>
               </div>
 
@@ -291,8 +299,8 @@ export default function WhatsAppMessengerPage() {
                     fontSize: "13px", color: "var(--text-primary)", background: "#fff", outline: "none", cursor: "pointer",
                   }}
                 >
-                  <option value="">Select parameter...</option>
-                  {Object.keys(filterOptions).map((k) => <option key={k} value={k}>{k}</option>)}
+                  <option value="">{t("select_parameter")}</option>
+                  {Object.keys(filterOptions).map((k) => <option key={k} value={k}>{t(k.toLowerCase().replace(" ", "_"))}</option>)}
                 </select>
 
                 {filterField && (
@@ -304,8 +312,8 @@ export default function WhatsAppMessengerPage() {
                       fontSize: "13px", color: "var(--text-primary)", background: "#fff", outline: "none", cursor: "pointer",
                     }}
                   >
-                    <option value="">Select value...</option>
-                    {filterOptions[filterField]?.map((v) => <option key={v} value={v}>{v}</option>)}
+                    <option value="">{t("select_value")}</option>
+                    {filterOptions[filterField]?.map((v) => <option key={v} value={v}>{t(v.toLowerCase().replace(/ \(.+\)/, "").replace(/ /g, "_").replace(/–/g, "_")) || v}</option>)}
                   </select>
                 )}
 
@@ -331,39 +339,39 @@ export default function WhatsAppMessengerPage() {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
               <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "linear-gradient(135deg,#1d4ed8,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: "#fff" }}>2</div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Message Type
+                {t("message_type")}
               </h2>
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginLeft: "30px", marginBottom: "20px" }}>
-              Choose between a general announcement or an interactive poll
+              {t("message_type_desc")}
             </p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "24px" }}>
               {([
-                { id: "announcement" as const, label: "Announcement", desc: "One-way broadcast message", icon: Megaphone, color: "#1d4ed8" },
-                { id: "poll" as const, label: "Poll / Survey", desc: "Interactive with response options", icon: Vote, color: "#7c3aed" },
-              ]).map((t) => {
-                const Icon = t.icon;
-                const isSelected = messageType === t.id;
+                { id: "announcement" as const, label: t("announcement"), desc: t("announcement_desc"), icon: Megaphone, color: "#1d4ed8" },
+                { id: "poll" as const, label: t("poll_survey"), desc: t("poll_desc"), icon: Vote, color: "#7c3aed" },
+              ]).map((item) => {
+                const Icon = item.icon;
+                const isSelected = messageType === item.id;
                 return (
                   <button
-                    key={t.id}
-                    onClick={() => setMessageType(t.id)}
+                    key={item.id}
+                    onClick={() => setMessageType(item.id)}
                     style={{
                       display: "flex", alignItems: "center", gap: "12px",
                       padding: "16px", borderRadius: "12px",
-                      border: `2px solid ${isSelected ? t.color : "#e2e8f0"}`,
-                      background: isSelected ? `${t.color}08` : "#fff",
+                      border: `2px solid ${isSelected ? item.color : "#e2e8f0"}`,
+                      background: isSelected ? `${item.color}08` : "#fff",
                       cursor: "pointer", transition: "all 0.2s",
-                      boxShadow: isSelected ? `0 0 0 3px ${t.color}15` : "none",
+                      boxShadow: isSelected ? `0 0 0 3px ${item.color}15` : "none",
                     }}
                   >
-                    <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: `${t.color}10`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Icon size={18} style={{ color: t.color }} />
+                    <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: `${item.color}10`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon size={18} style={{ color: item.color }} />
                     </div>
                     <div style={{ textAlign: "left" }}>
-                      <p style={{ fontSize: "14px", fontWeight: 600, color: isSelected ? t.color : "var(--text-primary)" }}>{t.label}</p>
-                      <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>{t.desc}</p>
+                      <p style={{ fontSize: "14px", fontWeight: 600, color: isSelected ? item.color : "var(--text-primary)" }}>{item.label}</p>
+                      <p style={{ fontSize: "12px", color: "var(--text-muted)" }}>{item.desc}</p>
                     </div>
                   </button>
                 );
@@ -372,24 +380,24 @@ export default function WhatsAppMessengerPage() {
 
             {/* Template selector */}
             <div style={{ marginBottom: "20px" }}>
-              <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "6px" }}>Template</label>
+              <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "6px" }}>{t("template")}</label>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                {TEMPLATES.map((t) => {
-                  const Icon = t.icon;
+                {TEMPLATES.map((temp) => {
+                  const Icon = temp.icon;
                   return (
                     <button
-                      key={t.id}
-                      onClick={() => setSelectedTemplate(t.id)}
+                      key={temp.id}
+                      onClick={() => setSelectedTemplate(temp.id)}
                       style={{
                         display: "flex", alignItems: "center", gap: "6px",
                         padding: "7px 14px", borderRadius: "8px",
-                        border: `1px solid ${selectedTemplate === t.id ? "#1d4ed8" : "#e2e8f0"}`,
-                        background: selectedTemplate === t.id ? "rgba(29,78,216,0.08)" : "#fff",
-                        color: selectedTemplate === t.id ? "#1d4ed8" : "var(--text-secondary)",
+                        border: `1px solid ${selectedTemplate === temp.id ? "#1d4ed8" : "#e2e8f0"}`,
+                        background: selectedTemplate === temp.id ? "rgba(29,78,216,0.08)" : "#fff",
+                        color: selectedTemplate === temp.id ? "#1d4ed8" : "var(--text-secondary)",
                         fontSize: "12px", fontWeight: 600, cursor: "pointer",
                       }}
                     >
-                      <Icon size={13} /> {t.label}
+                      <Icon size={13} /> {temp.id === "custom" ? t("custom_message") : temp.id === "maintenance" ? t("scheduled_maintenance") : temp.id === "event" ? t("community_event") : t("policy_update")}
                     </button>
                   );
                 })}
@@ -399,7 +407,7 @@ export default function WhatsAppMessengerPage() {
             {/* Subject */}
             <div style={{ marginBottom: "16px" }}>
               <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "6px" }}>
-                Subject / Title
+                {t("subject_title")}
               </label>
               <input
                 type="text"
@@ -419,7 +427,7 @@ export default function WhatsAppMessengerPage() {
             {messageType === "announcement" && (
               <div>
                 <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "6px" }}>
-                  Message Body
+                  {t("message_body")}
                 </label>
                 <textarea
                   value={messageBody}
@@ -471,7 +479,7 @@ export default function WhatsAppMessengerPage() {
               <div>
                 <div style={{ marginBottom: "16px" }}>
                   <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "6px" }}>
-                    Poll Question
+                    {t("poll_question")}
                   </label>
                   <input
                     type="text"
@@ -488,7 +496,7 @@ export default function WhatsAppMessengerPage() {
                 </div>
 
                 <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", display: "block", marginBottom: "8px" }}>
-                  Options ({pollOptions.length})
+                  {t("options")} ({pollOptions.length})
                 </label>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "12px" }}>
@@ -529,7 +537,7 @@ export default function WhatsAppMessengerPage() {
                       color: "#7c3aed", fontSize: "12px", fontWeight: 600, cursor: "pointer",
                     }}
                   >
-                    <Plus size={13} /> Add Option
+                    <Plus size={13} /> {t("add_option")}
                   </button>
 
                   <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
@@ -539,7 +547,7 @@ export default function WhatsAppMessengerPage() {
                       onChange={(e) => setAllowMultiple(e.target.checked)}
                       style={{ accentColor: "#7c3aed", width: "16px", height: "16px" }}
                     />
-                    <span style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-secondary)" }}>Allow multiple selections</span>
+                    <span style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-secondary)" }}>{t("allow_multiple")}</span>
                   </label>
                 </div>
               </div>
@@ -551,17 +559,17 @@ export default function WhatsAppMessengerPage() {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
               <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "linear-gradient(135deg,#1d4ed8,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: "#fff" }}>3</div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Schedule & Send
+                {t("schedule_send")}
               </h2>
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginLeft: "30px", marginBottom: "20px" }}>
-              Send immediately or schedule for later
+              {t("schedule_desc")}
             </p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "20px" }}>
               {([
-                { id: "now" as const, label: "Send Now", icon: Send },
-                { id: "later" as const, label: "Schedule", icon: Clock },
+                { id: "now" as const, label: t("send_now"), icon: Send },
+                { id: "later" as const, label: t("schedule"), icon: Clock },
               ]).map((s) => {
                 const Icon = s.icon;
                 const isSelected = scheduleType === s.id;
@@ -608,7 +616,7 @@ export default function WhatsAppMessengerPage() {
                   color: "var(--text-secondary)", fontSize: "13px", fontWeight: 500, cursor: "pointer",
                 }}
               >
-                <Eye size={14} /> Preview
+                <Eye size={14} /> {t("preview")}
               </button>
               <button
                 onClick={handleSend}
@@ -623,7 +631,7 @@ export default function WhatsAppMessengerPage() {
                   transition: "all 0.3s",
                 }}
               >
-                {sent ? <><CheckCircle2 size={15} /> Message Sent!</> : sending ? <><div style={{ width: "14px", height: "14px", border: "2px solid rgba(255,255,255,0.3)", borderTop: "2px solid #fff", borderRadius: "50%", animation: "spin 1s linear infinite" }} /> Sending...</> : <><Send size={14} /> {scheduleType === "now" ? "Send Message" : "Schedule Message"}</>}
+                {sent ? <><CheckCircle2 size={15} /> {t("message_sent")}</> : sending ? <><div style={{ width: "14px", height: "14px", border: "2px solid rgba(255,255,255,0.3)", borderTop: "2px solid #fff", borderRadius: "50%", animation: "spin 1s linear infinite" }} /> {t("sending")}</> : <><Send size={14} /> {scheduleType === "now" ? t("send_message") : t("schedule_message")}</>}
               </button>
             </div>
           </div>
@@ -635,34 +643,34 @@ export default function WhatsAppMessengerPage() {
           {/* Audience Summary */}
           <div className="glass-card" style={{ padding: "24px" }}>
             <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "16px" }}>
-              Audience Summary
+              {t("audience_summary")}
             </h3>
 
             <div style={{ textAlign: "center", padding: "20px", borderRadius: "12px", background: audienceType === "citizens" ? "rgba(29,78,216,0.04)" : "rgba(124,58,237,0.04)", border: `1px solid ${audienceType === "citizens" ? "rgba(29,78,216,0.1)" : "rgba(124,58,237,0.1)"}`, marginBottom: "16px" }}>
               <p style={{ fontSize: "32px", fontWeight: 800, color: audienceType === "citizens" ? "#1d4ed8" : "#7c3aed", lineHeight: 1, letterSpacing: "-0.03em" }}>
-                {estimatedRecipients.toLocaleString("en-US")}
+                {mounted ? estimatedRecipients.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"}
               </p>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "4px", fontWeight: 500 }}>
-                estimated recipients
+                {t("estimated_recipients")}
               </p>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                <span style={{ color: "var(--text-muted)" }}>Audience</span>
-                <span style={{ fontWeight: 600, color: "var(--text-primary)", textTransform: "capitalize" }}>{audienceType}</span>
+                <span style={{ color: "var(--text-muted)" }}>{t("residents")}</span>
+                <span style={{ fontWeight: 600, color: "var(--text-primary)", textTransform: "capitalize" }}>{audienceType === "citizens" ? t("residents") : t("business_analytics")}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                <span style={{ color: "var(--text-muted)" }}>Filters</span>
-                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{filters.length || "None"}</span>
+                <span style={{ color: "var(--text-muted)" }}>{t("filter")}</span>
+                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{filters.length || t("all")}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                <span style={{ color: "var(--text-muted)" }}>Type</span>
-                <span style={{ fontWeight: 600, color: "var(--text-primary)", textTransform: "capitalize" }}>{messageType}</span>
+                <span style={{ color: "var(--text-muted)" }}>{t("status")}</span>
+                <span style={{ fontWeight: 600, color: "var(--text-primary)", textTransform: "capitalize" }}>{t(messageType)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                <span style={{ color: "var(--text-muted)" }}>Delivery</span>
-                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scheduleType === "now" ? "Immediate" : "Scheduled"}</span>
+                <span style={{ color: "var(--text-muted)" }}>{t("delivery")}</span>
+                <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scheduleType === "now" ? t("immediate") : t("scheduled")}</span>
               </div>
             </div>
           </div>
@@ -671,7 +679,7 @@ export default function WhatsAppMessengerPage() {
           {showPreview && (subject || messageBody || pollQuestion) && (
             <div className="glass-card" style={{ padding: "24px" }}>
               <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "16px", display: "flex", alignItems: "center", gap: "6px" }}>
-                <Eye size={14} /> Message Preview
+                <Eye size={14} /> {t("message_preview")}
               </h3>
 
               <div style={{ borderRadius: "12px", background: "#e5ddd5", padding: "16px", backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4ccc4' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}>
@@ -707,7 +715,7 @@ export default function WhatsAppMessengerPage() {
           {/* Recent Campaigns */}
           <div className="glass-card" style={{ padding: "24px" }}>
             <h3 style={{ fontSize: "14px", fontWeight: 700, color: "var(--text-primary)", marginBottom: "16px" }}>
-              Recent Campaigns
+              {t("recent_campaigns")}
             </h3>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
@@ -726,11 +734,11 @@ export default function WhatsAppMessengerPage() {
                     <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.2 }}>{c.title}</span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginLeft: "20px" }}>
-                    <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{c.recipients.toLocaleString("en-US")} recipients</span>
+                    <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{mounted ? c.recipients.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"} {t("recipients")}</span>
                     <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>•</span>
                     <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{c.sent}</span>
                     <span style={{ fontSize: "10px", fontWeight: 700, color: "#059669", background: "rgba(5,150,105,0.08)", padding: "2px 6px", borderRadius: "100px", marginLeft: "auto" }}>
-                      {c.status}
+                      {t("delivered")}
                     </span>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   Users,
@@ -127,7 +127,7 @@ const CITIZENS_TABLE = [
   { id: "CIT-231247", name: "Pablo Castro Navarro", email: "pablo.cn@mail.es", phone: "+34 623 456 111", district: "Fuencarral-El Pardo", dob: "16/10/2005", gender: "M", status: "Pending", docs: 1, lastUpdate: "Today" },
 ];
 
-const TABS = ["All", "Verified", "Pending", "Unverified"];
+const TABS = ["all", "verified", "pending", "unverified"];
 
 const STATUS_COLOR: Record<string, { bg: string; text: string; dot: string }> = {
   Verified: { bg: "rgba(5,150,105,0.1)", text: "#059669", dot: "#059669" },
@@ -139,8 +139,14 @@ const STATUS_COLOR: Record<string, { bg: string; text: string; dot: string }> = 
 
 export default function CitizenCollectionPage() {
   const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("all");
   const [sortField, setSortField] = useState<"name" | "district" | "dob" | "docs">("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -489,10 +495,10 @@ export default function CitizenCollectionPage() {
         >
           <div>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Citizen Records
+              {t("citizen_records")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              {filtered.length} {t("records_found")}
+              {t("recent_actions")} • {mounted ? filtered.length.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"} {t("records_found")}
             </p>
           </div>
 
@@ -559,7 +565,7 @@ export default function CitizenCollectionPage() {
                   padding: "1px 7px", borderRadius: "100px",
                 }}
               >
-                {tab === "All" ? CITIZENS_TABLE.length : CITIZENS_TABLE.filter((c) => c.status === tab).length}
+                {tab === "all" ? CITIZENS_TABLE.length : CITIZENS_TABLE.filter((c) => c.status.toLowerCase() === tab).length}
               </span>
             </button>
           ))}
@@ -763,6 +769,6 @@ export default function CitizenCollectionPage() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
