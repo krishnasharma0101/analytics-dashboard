@@ -32,20 +32,22 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/context/LanguageContext";
 
 const navItems = [
-  { label: "Dashboard", href: "/", icon: LayoutDashboard },
-  { label: "Residents", href: "/citizens", icon: Users },
-  { label: "Business Analytics", href: "/analytics/business", icon: BarChart3 },
-  { label: "Demographics", href: "/analytics/people", icon: UserCircle },
-  { label: "AI Insights", href: "/ai-chatbot", icon: MessageSquare, badge: "NEW" },
-  { label: "WhatsApp", href: "/messaging", icon: MessageCircle },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Dashboard", key: "dashboard", href: "/", icon: LayoutDashboard },
+  { label: "Residents", key: "residents", href: "/citizens", icon: Users },
+  { label: "Business Analytics", key: "business_analytics", href: "/analytics/business", icon: BarChart3 },
+  { label: "Demographics", key: "demographics", href: "/analytics/people", icon: UserCircle },
+  { label: "AI Insights", key: "ai_insights", href: "/ai-chatbot", icon: MessageSquare, badge: "NEW" },
+  { label: "WhatsApp", key: "whatsapp", href: "/messaging", icon: MessageCircle },
+  { label: "Settings", key: "settings", href: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
+  const { t } = useLanguage();
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -64,7 +66,7 @@ export function AppSidebar() {
               </div>
               <div className="flex flex-col gap-0.5 leading-none group-data-[collapsible=icon]:hidden">
                 <span className="font-bold text-sm tracking-tight uppercase">CIUDADANIA</span>
-                <span className="text-[10px] font-bold text-sidebar-foreground/50 tracking-wider">LANZAROTE TOWN HALL</span>
+                <span className="text-[10px] font-bold text-sidebar-foreground/50 tracking-wider uppercase">{t("lanzarote_town_hall")}</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -75,7 +77,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="uppercase text-[10px] tracking-widest font-bold text-sidebar-foreground/40">
-            Menu
+            {t("menu")}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -85,12 +87,12 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       render={<Link href={item.href} />}
-                      tooltip={item.label}
+                      tooltip={t(item.key)}
                       isActive={active}
                       className="transition-all duration-200"
                     >
                       <item.icon className="shrink-0" />
-                      <span>{item.label}</span>
+                      <span>{t(item.key)}</span>
                     </SidebarMenuButton>
                     {item.badge && (
                       <SidebarMenuBadge>
@@ -117,8 +119,8 @@ export function AppSidebar() {
                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-sidebar" />
               </div>
               <div className="flex flex-col gap-0.5 leading-none group-data-[collapsible=icon]:hidden">
-                <span className="text-sm font-semibold">System Online</span>
-                <span className="text-xs text-sidebar-foreground/50">Admin Access</span>
+                <span className="text-sm font-semibold">{t("system_online")}</span>
+                <span className="text-xs text-sidebar-foreground/50">{t("admin_access")}</span>
               </div>
               <ChevronsUpDown className="ml-auto w-4 h-4 text-sidebar-foreground/30 group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>

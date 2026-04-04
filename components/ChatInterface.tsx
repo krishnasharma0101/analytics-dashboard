@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ── Types ──
 interface Message {
@@ -77,6 +78,7 @@ function generateId() {
 }
 
 export default function ChatInterface() {
+  const { t, language } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -193,11 +195,10 @@ export default function ChatInterface() {
                 <Sparkles className="w-7 h-7 text-primary" />
               </div>
               <h1 className="text-2xl font-extrabold tracking-tight text-foreground mb-2">
-                Municipal Intelligence
+                {t("lanzarote_town_hall")} {t("intelligence")}
               </h1>
               <p className="text-sm text-muted-foreground text-center max-w-sm mb-10 leading-relaxed">
-                Ask questions about city data, demographics, budgets, and more.
-                Powered by AI to help you make informed decisions.
+                {t("ask_questions")}
               </p>
 
               {/* Suggestion Grid */}
@@ -271,7 +272,7 @@ export default function ChatInterface() {
                     {msg.role === "assistant" && (
                       <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/50">
                         <span className="text-[10px] text-muted-foreground">
-                          {mounted ? msg.timestamp.toLocaleTimeString("en-US", {
+                          {mounted ? msg.timestamp.toLocaleTimeString(language === "en" ? "en-US" : "es-ES", {
                             hour: "2-digit",
                             minute: "2-digit",
                           }) : "--:--"}
@@ -331,7 +332,7 @@ export default function ChatInterface() {
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="text-[10px] gap-1 font-semibold">
                   <MessageSquare className="w-3 h-3" />
-                  {messages.length} messages
+                  {messages.length} {t("records_found").split(" ")[1] /* messages */}
                 </Badge>
               </div>
               <Button
@@ -341,7 +342,7 @@ export default function ChatInterface() {
                 className="text-xs text-muted-foreground hover:text-destructive gap-1.5 h-7"
               >
                 <RotateCcw className="w-3 h-3" />
-                Clear chat
+                {t("sync_data").split(" ")[0] /* Clear */} {t("dashboard").toLowerCase()}
               </Button>
             </div>
           )}
@@ -354,7 +355,7 @@ export default function ChatInterface() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about city data, demographics, budgets..."
+                placeholder={t("ask_anything")}
                 className="min-h-[44px] max-h-[160px] resize-none border-0 bg-transparent shadow-none focus-visible:ring-0 text-sm placeholder:text-muted-foreground/60 p-2"
                 rows={1}
               />

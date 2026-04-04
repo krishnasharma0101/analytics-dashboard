@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     "Municipal analytics platform for Lanzarote. Monitor citizen data, business metrics, and community insights.",
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full font-sans">
-        <TooltipProvider>
-          <DashboardShell>{children}</DashboardShell>
-        </TooltipProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <DashboardShell>{children}</DashboardShell>
+          </TooltipProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

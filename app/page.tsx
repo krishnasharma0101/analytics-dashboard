@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
 import {
   Users,
@@ -144,6 +145,7 @@ const QUICK_LINKS = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
+  const { t, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -151,8 +153,9 @@ export default function DashboardPage() {
   }, []);
 
   const now = new Date();
-  const greeting = now.getHours() < 12 ? "Good Morning" : now.getHours() < 18 ? "Good Afternoon" : "Good Evening";
-  const dateStr = mounted ? now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" }) : "---";
+  const greetingKey = now.getHours() < 12 ? "good_morning" : now.getHours() < 18 ? "good_afternoon" : "good_evening";
+  const greeting = t(greetingKey);
+  const dateStr = mounted ? now.toLocaleDateString(language === "en" ? "en-US" : "es-ES", { weekday: "long", year: "numeric", month: "long", day: "numeric" }) : "---";
 
   return (
     <div className="page-content" style={{ padding: "2rem", maxWidth: "1400px", margin: "0 auto" }}>
@@ -181,7 +184,7 @@ export default function DashboardPage() {
               <Zap size={18} color="#fff" />
             </div>
             <h1 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-              {greeting}, Admin
+              {greeting}, {t("admin")}
             </h1>
           </div>
           <p style={{ fontSize: "14px", color: "var(--text-muted)", marginLeft: "46px", display: "flex", alignItems: "center", gap: "6px" }}>
@@ -199,7 +202,7 @@ export default function DashboardPage() {
             }}
           >
             <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669", boxShadow: "0 0 6px rgba(5,150,105,0.5)" }} />
-            All Systems Operational
+            {t("all_systems_operational")}
           </div>
         </div>
       </div>
@@ -250,10 +253,10 @@ export default function DashboardPage() {
                 {k.value}
               </p>
               <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginTop: "4px" }}>
-                {k.label}
+                {t(k.id === "citizens" ? "total_citizens" : k.id === "businesses" ? "active_businesses" : k.id === "revenue" ? "revenue_trend" : "total_tourists")}
               </p>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                {k.sub}
+                {t(k.id === "citizens" ? "census_registered" : k.id === "businesses" ? "registered_entities" : k.id === "revenue" ? "municipal_estimate" : "by_air_cruise")}
               </p>
             </Link>
           );
@@ -275,10 +278,10 @@ export default function DashboardPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Revenue Trend
+                {t("revenue_trend")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Monthly municipal revenue over the past 12 months (€M)
+                {t("revenue_description")}
               </p>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", fontWeight: 600, color: "#059669" }}>
@@ -366,10 +369,10 @@ export default function DashboardPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Recent Activity
+                {t("recent_activity")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Latest actions & events
+                {t("recent_actions")}
               </p>
             </div>
             <Clock size={15} style={{ color: "var(--text-muted)" }} />
@@ -438,10 +441,10 @@ export default function DashboardPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                District Overview
+                {t("top_districts")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Key metrics for top 6 districts
+                {t("performance")}
               </p>
             </div>
             <Building2 size={15} style={{ color: "var(--text-muted)" }} />
@@ -452,9 +455,9 @@ export default function DashboardPage() {
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
-                  {["District", "Citizens", "Businesses", "Satisfaction"].map((h) => (
+                  {[t("municipalities"), t("residents"), t("active_businesses"), t("satisfaction")].map((label, idx) => (
                     <th
-                      key={h}
+                      key={idx}
                       style={{
                         padding: "10px 14px",
                         textAlign: "left",
@@ -466,7 +469,7 @@ export default function DashboardPage() {
                         borderBottom: "1px solid rgba(226,232,240,0.7)",
                       }}
                     >
-                      {h}
+                      {label}
                     </th>
                   ))}
                 </tr>
@@ -486,10 +489,10 @@ export default function DashboardPage() {
                       </div>
                     </td>
                     <td style={{ padding: "12px 14px", fontSize: "13px", fontWeight: 500, color: "var(--text-secondary)" }}>
-                      {mounted ? d.citizens.toLocaleString("en-US") : "---"}
+                      {mounted ? d.citizens.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"}
                     </td>
                     <td style={{ padding: "12px 14px", fontSize: "13px", fontWeight: 500, color: "var(--text-secondary)" }}>
-                      {mounted ? d.businesses.toLocaleString("en-US") : "---"}
+                      {mounted ? d.businesses.toLocaleString(language === "en" ? "en-US" : "es-ES") : "---"}
                     </td>
                     <td style={{ padding: "12px 14px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -520,10 +523,10 @@ export default function DashboardPage() {
         <div className="glass-card" style={{ padding: "24px" }}>
           <div style={{ marginBottom: "22px" }}>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Quick Access
+              {t("quick_links")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              Jump to key modules
+              {t("ask_questions")}
             </p>
           </div>
 
@@ -565,10 +568,10 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.2 }}>
-                      {link.label}
+                      {t(link.href === "/citizens" ? "citizen_records" : link.href === "/analytics/business" ? "revenue_insights" : link.href === "/analytics/people" ? "population_data" : "ai_insights")}
                     </p>
                     <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                      {link.description}
+                      {t(link.href === "/citizens" ? "view_demographics" : link.href === "/analytics/business" ? "revenue_insights" : link.href === "/analytics/people" ? "population_data" : "ask_questions")}
                     </p>
                   </div>
                   <ArrowUpRight size={16} style={{ color: "var(--text-muted)", flexShrink: 0 }} />
@@ -589,10 +592,10 @@ export default function DashboardPage() {
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
               <Sparkles size={14} style={{ color: "#7c3aed" }} />
-              <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)" }}>AI-Powered Insights</span>
+              <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)" }}>{t("ai_powered")}</span>
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginBottom: "12px" }}>
-              Get instant answers about city data. Ask about demographics, revenue trends, or district comparisons.
+              {t("get_instant_answers")}
             </p>
             <Link
               href="/ai-chatbot"
@@ -608,7 +611,7 @@ export default function DashboardPage() {
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
             >
-              <MessageSquare size={12} /> Try it now
+              <MessageSquare size={12} /> {t("try_now")}
             </Link>
           </div>
         </div>

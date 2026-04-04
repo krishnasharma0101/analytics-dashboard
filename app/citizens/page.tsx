@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   Users,
   UserPlus,
@@ -137,6 +138,7 @@ const STATUS_COLOR: Record<string, { bg: string; text: string; dot: string }> = 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CitizenCollectionPage() {
+  const { t, language } = useLanguage();
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("All");
   const [sortField, setSortField] = useState<"name" | "district" | "dob" | "docs">("name");
@@ -200,11 +202,11 @@ export default function CitizenCollectionPage() {
               <Users size={18} color="#fff" />
             </div>
             <h1 style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
-              Citizen Collection
+              {t("citizen_collection")}
             </h1>
           </div>
           <p style={{ fontSize: "14px", color: "var(--text-muted)", marginLeft: "46px" }}>
-            Manage citizen data, verify identities, and track collection progress across all districts
+            {t("view_demographics")}
           </p>
         </div>
 
@@ -220,7 +222,7 @@ export default function CitizenCollectionPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "#f8fafc")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "#fff")}
           >
-            <RefreshCw size={14} /> Sync Data
+            <RefreshCw size={14} /> {t("sync_data")}
           </button>
           <button
             style={{
@@ -234,7 +236,7 @@ export default function CitizenCollectionPage() {
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
           >
-            <UserPlus size={14} /> Add Citizen
+            <UserPlus size={14} /> {t("add_citizen")}
           </button>
         </div>
       </div>
@@ -280,10 +282,10 @@ export default function CitizenCollectionPage() {
                 {k.value}
               </p>
               <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginTop: "4px" }}>
-                {k.label}
+                {t(k.id === "total" ? "total_records" : k.id === "verified" ? "verified_citizens" : k.id === "new" ? "new_registrations" : "pending_review")}
               </p>
               <p style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
-                {k.sub}
+                {t(k.id === "total" ? "census_registered" : k.id === "verified" ? "fully_verified" : k.id === "new" ? "good_morning" : "under_review")}
               </p>
             </div>
           );
@@ -305,10 +307,10 @@ export default function CitizenCollectionPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                Data Collection Progress
+                {t("data_collection_progress")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Completeness by data category
+                {t("performance")}
               </p>
             </div>
             <ArrowUpRight size={16} style={{ color: "var(--text-muted)" }} />
@@ -358,10 +360,10 @@ export default function CitizenCollectionPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px" }}>
             <div>
               <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-                District Collection Rate
+                {t("district_collection_rate")}
               </h2>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-                Data completeness by district
+                {t("performance")}
               </p>
             </div>
             <MapPin size={15} style={{ color: "var(--text-muted)" }} />
@@ -414,10 +416,10 @@ export default function CitizenCollectionPage() {
         <div className="glass-card" style={{ padding: "24px" }}>
           <div style={{ marginBottom: "22px" }}>
             <h2 style={{ fontSize: "15px", fontWeight: 700, color: "var(--text-primary)" }}>
-              Verification Status
+              {t("verification_status")}
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              Identity verification breakdown
+              {t("performance")}
             </p>
           </div>
 
@@ -452,7 +454,7 @@ export default function CitizenCollectionPage() {
                 alignItems: "center", justifyContent: "center",
               }}>
                 <p style={{ fontSize: "20px", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>87.4%</p>
-                <p style={{ fontSize: "10px", color: "var(--text-muted)", fontWeight: 500 }}>Verified</p>
+                <p style={{ fontSize: "10px", color: "var(--text-muted)", fontWeight: 500 }}>{t("verified")}</p>
               </div>
             </div>
           </div>
@@ -462,7 +464,7 @@ export default function CitizenCollectionPage() {
               <div key={v.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <div style={{ width: "10px", height: "10px", borderRadius: "3px", background: v.color }} />
-                  <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontWeight: 500 }}>{v.label}</span>
+                  <span style={{ fontSize: "13px", color: "var(--text-secondary)", fontWeight: 500 }}>{t(v.label === "Fully Verified" ? "fully_verified" : v.label === "Partially Verified" ? "partially_verified" : v.label === "Unverified" ? "unverified" : "under_review")}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>{v.count}</span>
@@ -490,7 +492,7 @@ export default function CitizenCollectionPage() {
               Citizen Records
             </h2>
             <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>
-              {filtered.length} record{filtered.length !== 1 ? "s" : ""} found
+              {filtered.length} {t("records_found")}
             </p>
           </div>
 
@@ -499,7 +501,7 @@ export default function CitizenCollectionPage() {
               <Search size={14} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", pointerEvents: "none" }} />
               <input
                 type="text"
-                placeholder="Search name, ID, email, district…"
+                placeholder={t("search_placeholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
@@ -519,7 +521,7 @@ export default function CitizenCollectionPage() {
                 color: "var(--text-secondary)", fontSize: "13px", fontWeight: 500, cursor: "pointer",
               }}
             >
-              <Filter size={13} /> Filter
+              <Filter size={13} /> {t("filter")}
             </button>
             <button
               style={{
@@ -529,7 +531,7 @@ export default function CitizenCollectionPage() {
                 color: "var(--text-secondary)", fontSize: "13px", fontWeight: 500, cursor: "pointer",
               }}
             >
-              <Download size={13} /> Export
+              <Download size={13} /> {t("export")}
             </button>
           </div>
         </div>
@@ -548,7 +550,7 @@ export default function CitizenCollectionPage() {
                 transition: "color 0.2s, border-color 0.2s",
               }}
             >
-              {tab}
+              {t(tab.toLowerCase())}
               <span
                 style={{
                   marginLeft: "6px", fontSize: "11px", fontWeight: 700,
@@ -570,13 +572,13 @@ export default function CitizenCollectionPage() {
               <tr style={{ background: "#f8fafc" }}>
                 {([
                   { key: "id", label: "ID", sortable: false },
-                  { key: "name", label: "Citizen", sortable: true },
-                  { key: "district", label: "District", sortable: true },
-                  { key: "dob", label: "DOB", sortable: true },
-                  { key: "contact", label: "Contact", sortable: false },
-                  { key: "docs", label: "Documents", sortable: true },
-                  { key: "status", label: "Status", sortable: false },
-                  { key: "lastUpdate", label: "Last Updated", sortable: false },
+                  { key: "name", label: t("citizen"), sortable: true },
+                  { key: "district", label: t("district"), sortable: true },
+                  { key: "dob", label: t("dob"), sortable: true },
+                  { key: "contact", label: t("contact"), sortable: false },
+                  { key: "docs", label: t("documents"), sortable: true },
+                  { key: "status", label: t("status"), sortable: false },
+                  { key: "lastUpdate", label: t("last_updated"), sortable: false },
                   { key: "actions", label: "", sortable: false },
                 ] as { key: string; label: string; sortable: boolean }[]).map((col) => (
                   <th
