@@ -36,17 +36,17 @@ const suggestions = [
   {
     icon: BarChart3,
     label: "Revenue breakdown",
-    prompt: "Show me a revenue breakdown by district for the last quarter",
+    prompt: "Show me a revenue breakdown by municipality for the last quarter",
   },
   {
     icon: Users,
     label: "Population trends",
-    prompt: "What are the latest population trends in Madrid?",
+    prompt: "What are the latest population trends in Lanzarote?",
   },
   {
     icon: Building2,
     label: "Business licenses",
-    prompt: "How many new business licenses were issued this month?",
+    prompt: "How many new business licenses were issued in Arrecife this month?",
   },
   {
     icon: Lightbulb,
@@ -57,19 +57,19 @@ const suggestions = [
 
 // ── Fake streaming response (will be replaced with Ollama later) ──
 const fakeResponses: Record<string, string> = {
-  default: `Based on the available municipal data, here are the key insights:
+  default: `Based on the latest Lanzarote municipal data, here are the key insights:
 
 **Population Overview:**
-- Total residents: 3.3 million (2024 census)
+- Total residents: 156,112 (2024 census)
 - Year-over-year growth: +1.2%
-- Median age: 42.3 years
+- Median age: 44.5 years
 
 **Economic Indicators:**
-- New business registrations: 2,847 (Q4)
-- Employment rate: 87.3%
-- Tourism revenue: €4.2B annually
+- New business registrations: 412 (Q4)
+- Employment rate: 84.1%
+- Tourism revenue: €540M annually (municipal estimate)
 
-I can provide more detailed breakdowns for any of these metrics. What area would you like to explore further?`,
+I can provide more detailed breakdowns for any of these municipalities like Arrecife, Teguise, or Yaiza. What area would you like to explore further?`,
 };
 
 function generateId() {
@@ -80,9 +80,14 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -266,10 +271,10 @@ export default function ChatInterface() {
                     {msg.role === "assistant" && (
                       <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/50">
                         <span className="text-[10px] text-muted-foreground">
-                          {msg.timestamp.toLocaleTimeString([], {
+                          {mounted ? msg.timestamp.toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
-                          })}
+                          }) : "--:--"}
                         </span>
                         <button
                           onClick={() => handleCopy(msg.id, msg.content)}

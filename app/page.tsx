@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Users,
@@ -27,26 +27,36 @@ import {
   Zap,
 } from "lucide-react";
 
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 // ─── Mock Data ────────────────────────────────────────────────────────────────
 
 const KPI_CARDS = [
   {
     id: "citizens",
     label: "Total Citizens",
-    value: "3,305,408",
+    value: "156,112",
     change: "+1.2%",
     up: true,
-    sub: "vs last year",
+    sub: "census registered",
     icon: Users,
-    color: "#1d4ed8",
-    bg: "rgba(29,78,216,0.08)",
-    border: "rgba(29,78,216,0.15)",
+    color: "#2563eb",
+    bg: "rgba(37,99,235,0.08)",
+    border: "rgba(37,99,235,0.15)",
     href: "/analytics/people",
   },
   {
     id: "businesses",
     label: "Active Businesses",
-    value: "48,392",
+    value: "5,089",
     change: "+4.7%",
     up: true,
     sub: "registered entities",
@@ -59,7 +69,7 @@ const KPI_CARDS = [
   {
     id: "revenue",
     label: "Annual Revenue",
-    value: "€2.4B",
+    value: "€540M",
     change: "+6.2%",
     up: true,
     sub: "municipal estimate",
@@ -70,52 +80,58 @@ const KPI_CARDS = [
     href: "/analytics/business",
   },
   {
-    id: "licenses",
-    label: "Active Licenses",
-    value: "41,208",
-    change: "+2.1%",
+    id: "tourists",
+    label: "Annual Tourists",
+    value: "3.41M",
+    change: "+10.5%",
     up: true,
-    sub: "currently valid",
+    sub: "by air & cruise",
     icon: FileBadge,
-    color: "#0891b2",
-    bg: "rgba(8,145,178,0.08)",
-    border: "rgba(8,145,178,0.15)",
+    color: "#ea580c",
+    bg: "rgba(234,88,12,0.08)",
+    border: "rgba(234,88,12,0.15)",
     href: "/analytics/business",
   },
 ];
 
 // Monthly trend data (last 12 months)
 const MONTHLY_TREND = [
-  { month: "Apr", citizens: 3240, businesses: 44200, revenue: 185 },
-  { month: "May", citizens: 3255, businesses: 44800, revenue: 192 },
-  { month: "Jun", citizens: 3261, businesses: 45100, revenue: 198 },
-  { month: "Jul", citizens: 3268, businesses: 45400, revenue: 188 },
-  { month: "Aug", citizens: 3270, businesses: 45200, revenue: 175 },
-  { month: "Sep", citizens: 3275, businesses: 45800, revenue: 201 },
-  { month: "Oct", citizens: 3280, businesses: 46300, revenue: 210 },
-  { month: "Nov", citizens: 3285, businesses: 46700, revenue: 215 },
-  { month: "Dec", citizens: 3290, businesses: 47100, revenue: 208 },
-  { month: "Jan", citizens: 3295, businesses: 47500, revenue: 220 },
-  { month: "Feb", citizens: 3300, businesses: 47900, revenue: 228 },
-  { month: "Mar", citizens: 3305, businesses: 48392, revenue: 240 },
+  { month: "Apr", citizens: 154, businesses: 4800, revenue: 38 },
+  { month: "May", citizens: 154, businesses: 4850, revenue: 42 },
+  { month: "Jun", citizens: 155, businesses: 4880, revenue: 48 },
+  { month: "Jul", citizens: 155, businesses: 4920, revenue: 52 },
+  { month: "Aug", citizens: 155, businesses: 4890, revenue: 55 },
+  { month: "Sep", citizens: 155, businesses: 4950, revenue: 45 },
+  { month: "Oct", citizens: 156, businesses: 5010, revenue: 48 },
+  { month: "Nov", citizens: 156, businesses: 5040, revenue: 42 },
+  { month: "Dec", citizens: 156, businesses: 5060, revenue: 58 },
+  { month: "Jan", citizens: 156, businesses: 5070, revenue: 50 },
+  { month: "Feb", citizens: 156, businesses: 5080, revenue: 48 },
+  { month: "Mar", citizens: 156, businesses: 5089, revenue: 62 },
 ];
 
 const DISTRICT_OVERVIEW = [
-  { name: "Centro", citizens: 143130, businesses: 8420, satisfaction: 87 },
-  { name: "Salamanca", citizens: 147683, businesses: 6230, satisfaction: 92 },
-  { name: "Chamartín", citizens: 147943, businesses: 5890, satisfaction: 89 },
-  { name: "Arganzuela", citizens: 155419, businesses: 4210, satisfaction: 84 },
-  { name: "Chamberí", citizens: 139080, businesses: 5120, satisfaction: 91 },
-  { name: "Retiro", citizens: 120067, businesses: 3450, satisfaction: 86 },
+  { name: "Arrecife", citizens: 64283, businesses: 1842, satisfaction: 87 },
+  { name: "Teguise", citizens: 23145, businesses: 823, satisfaction: 90 },
+  { name: "Tías", citizens: 20108, businesses: 790, satisfaction: 88 },
+  { name: "San Bartolomé", citizens: 19412, businesses: 610, satisfaction: 84 },
+  { name: "Yaiza", citizens: 17244, businesses: 520, satisfaction: 92 },
+  { name: "Tinajo", citizens: 6512, businesses: 250, satisfaction: 89 },
+  { name: "Haría", citizens: 5408, businesses: 254, satisfaction: 91 },
+];
+
+const RECENT_CAMPAIGNS = [
+  { id: 1, title: "Water Notice - Timanfaya", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 23756, sent: "2d ago", status: "delivered" },
+  { id: 2, title: "Tourism Sustainability", type: "poll", audience: "Businesses", recipients: 5089, sent: "5d ago", status: "delivered" },
 ];
 
 const RECENT_ACTIVITY = [
-  { id: 1, type: "license", icon: FileBadge, color: "#7c3aed", text: "New business license approved", entity: "TechHub Ibérica S.L.", district: "Chamartín", time: "12 min ago" },
-  { id: 2, type: "citizen", icon: UserPlus, color: "#1d4ed8", text: "New citizen registration", entity: "María Fernández Gil", district: "Centro", time: "34 min ago" },
-  { id: 3, type: "alert", icon: AlertTriangle, color: "#f59e0b", text: "License renewal pending", entity: "Clínica Dental Sonrisa", district: "Tetuán", time: "1 hr ago" },
-  { id: 4, type: "revenue", icon: Euro, color: "#059669", text: "Tax payment received", entity: "Supermercados Luna", district: "Carabanchel", time: "2 hr ago" },
-  { id: 5, type: "complete", icon: CheckCircle2, color: "#059669", text: "Inspection completed", entity: "Restaurante El Rincón", district: "Latina", time: "3 hr ago" },
-  { id: 6, type: "citizen", icon: UserPlus, color: "#1d4ed8", text: "Citizen profile updated", entity: "Carlos Martínez Ruiz", district: "Chamartín", time: "4 hr ago" },
+  { id: 1, type: "license", icon: FileBadge, color: "#7c3aed", text: "New winery license approved", entity: "Bodegas La Geria S.L.", district: "Teguise", time: "12 min ago" },
+  { id: 2, type: "citizen", icon: UserPlus, color: "#1d4ed8", text: "New citizen registration", entity: "José Ramón Arrecife", district: "Arrecife", time: "34 min ago" },
+  { id: 3, type: "alert", icon: AlertTriangle, color: "#f59e0b", text: "Water usage alert", entity: "Timanfaya Sector B", district: "Yaiza", time: "1 hr ago" },
+  { id: 4, type: "revenue", icon: Euro, color: "#059669", text: "Port dues received", entity: "Naviera Lanzarote", district: "Arrecife", time: "2 hr ago" },
+  { id: 5, type: "complete", icon: CheckCircle2, color: "#059669", text: "Beach safety inspection", entity: "Playa Blanca", district: "Yaiza", time: "3 hr ago" },
+  { id: 6, type: "citizen", icon: UserPlus, color: "#1d4ed8", text: "Tourist record added", entity: "Cruise Arrival #42", district: "Arrecife", time: "4 hr ago" },
 ];
 
 const QUICK_LINKS = [
@@ -128,30 +144,15 @@ const QUICK_LINKS = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const now = new Date();
   const greeting = now.getHours() < 12 ? "Good Morning" : now.getHours() < 18 ? "Good Afternoon" : "Good Evening";
-  const dateStr = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
-
-  // Chart dimensions
-  const chartW = 100;
-  const chartH = 100;
-  const maxRevenue = Math.max(...MONTHLY_TREND.map((d) => d.revenue));
-  const minRevenue = Math.min(...MONTHLY_TREND.map((d) => d.revenue));
-  const revenueRange = maxRevenue - minRevenue || 1;
-
-  const trendPoints = MONTHLY_TREND.map((d, i) => {
-    const x = (i / (MONTHLY_TREND.length - 1)) * chartW;
-    const y = chartH - ((d.revenue - minRevenue) / revenueRange) * (chartH * 0.8) - chartH * 0.1;
-    return `${x},${y}`;
-  }).join(" ");
-
-  const areaPath = `M0,${chartH} ` +
-    MONTHLY_TREND.map((d, i) => {
-      const x = (i / (MONTHLY_TREND.length - 1)) * chartW;
-      const y = chartH - ((d.revenue - minRevenue) / revenueRange) * (chartH * 0.8) - chartH * 0.1;
-      return `L${x},${y}`;
-    }).join(" ") +
-    ` L${chartW},${chartH} Z`;
+  const dateStr = mounted ? now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" }) : "---";
 
   return (
     <div className="page-content" style={{ padding: "2rem", maxWidth: "1400px", margin: "0 auto" }}>
@@ -285,66 +286,78 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* SVG Line Chart */}
-          <div style={{ position: "relative", width: "100%", paddingBottom: "35%" }}>
-            <svg
-              viewBox={`0 0 ${chartW} ${chartH}`}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0.01" />
-                </linearGradient>
-              </defs>
-
-              {/* Grid lines */}
-              {[0.25, 0.5, 0.75].map((pct) => (
-                <line
-                  key={pct}
-                  x1="0" y1={chartH * pct} x2={chartW} y2={chartH * pct}
-                  stroke="rgba(226,232,240,0.5)" strokeWidth="0.3" strokeDasharray="2,2"
-                />
-              ))}
-
-              {/* Area fill */}
-              <path d={areaPath} fill="url(#revenueGrad)" />
-
-              {/* Line */}
-              <polyline
-                points={trendPoints}
-                fill="none"
-                stroke="#1d4ed8"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              {/* Dots */}
-              {MONTHLY_TREND.map((d, i) => {
-                const x = (i / (MONTHLY_TREND.length - 1)) * chartW;
-                const y = chartH - ((d.revenue - minRevenue) / revenueRange) * (chartH * 0.8) - chartH * 0.1;
-                return (
-                  <circle
-                    key={i}
-                    cx={x} cy={y} r="1.5"
-                    fill="#fff"
-                    stroke="#1d4ed8"
-                    strokeWidth="1"
+          {/* Recharts Area Chart */}
+          <div style={{ width: "100%", height: "240px", marginTop: "10px" }}>
+            {mounted ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={MONTHLY_TREND}
+                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#1d4ed8" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#1d4ed8" stopOpacity={0.01} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    vertical={false}
+                    stroke="rgba(226,232,240,0.5)"
                   />
-                );
-              })}
-            </svg>
-          </div>
-
-          {/* X-axis labels */}
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px", paddingLeft: "2px", paddingRight: "2px" }}>
-            {MONTHLY_TREND.map((d) => (
-              <span key={d.month} style={{ fontSize: "10px", color: "var(--text-muted)", fontWeight: 500 }}>
-                {d.month}
-              </span>
-            ))}
+                  <XAxis
+                    dataKey="month"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: "var(--text-muted)", fontWeight: 500 }}
+                    dy={10}
+                  />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: "var(--text-muted)", fontWeight: 500 }}
+                  />
+                  <Tooltip
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div
+                            style={{
+                              background: "#fff",
+                              padding: "10px 14px",
+                              border: "1px solid rgba(226,232,240,0.8)",
+                              borderRadius: "10px",
+                              boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)",
+                            }}
+                          >
+                            <p style={{ fontSize: "11px", fontWeight: 700, color: "var(--text-muted)", marginBottom: "4px" }}>
+                              {payload[0].payload.month}
+                            </p>
+                            <p style={{ fontSize: "14px", fontWeight: 800, color: "#1d4ed8" }}>
+                              €{payload[0].value}M
+                            </p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="#1d4ed8"
+                    strokeWidth={2}
+                    fillOpacity={1}
+                    fill="url(#colorRevenue)"
+                    animationDuration={1500}
+                    dot={{ r: 3, fill: "#fff", stroke: "#1d4ed8", strokeWidth: 2 }}
+                    activeDot={{ r: 5, fill: "#1d4ed8", stroke: "#fff", strokeWidth: 2 }}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <div style={{ width: "100%", height: "100%", background: "rgba(226,232,240,0.2)", borderRadius: "12px" }} />
+            )}
           </div>
         </div>
 
@@ -473,10 +486,10 @@ export default function DashboardPage() {
                       </div>
                     </td>
                     <td style={{ padding: "12px 14px", fontSize: "13px", fontWeight: 500, color: "var(--text-secondary)" }}>
-                      {d.citizens.toLocaleString()}
+                      {mounted ? d.citizens.toLocaleString("en-US") : "---"}
                     </td>
                     <td style={{ padding: "12px 14px", fontSize: "13px", fontWeight: 500, color: "var(--text-secondary)" }}>
-                      {d.businesses.toLocaleString()}
+                      {mounted ? d.businesses.toLocaleString("en-US") : "---"}
                     </td>
                     <td style={{ padding: "12px 14px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

@@ -11,9 +11,9 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "City of Madrid | Analytics Dashboard",
+  title: "CIUDADANIA | Lanzarote Analytics Dashboard",
   description:
-    "Municipal analytics platform for the City of Madrid. Monitor citizen data, business metrics, and AI-powered insights.",
+    "Municipal analytics platform for Lanzarote. Monitor citizen data, business metrics, and community insights.",
 };
 
 export default function RootLayout({

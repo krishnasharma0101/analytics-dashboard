@@ -27,7 +27,7 @@ const KPI_CARDS = [
   {
     id: "total",
     label: "Total Citizens",
-    value: "3,305,408",
+    value: "156,112",
     change: "+1.2%",
     up: true,
     sub: "vs last year",
@@ -39,7 +39,7 @@ const KPI_CARDS = [
   {
     id: "registered",
     label: "Registered Users",
-    value: "2,891,204",
+    value: "128,401",
     change: "+3.4%",
     up: true,
     sub: "vs last month",
@@ -51,7 +51,7 @@ const KPI_CARDS = [
   {
     id: "new",
     label: "New This Month",
-    value: "12,847",
+    value: "412",
     change: "+8.1%",
     up: true,
     sub: "vs previous month",
@@ -62,8 +62,8 @@ const KPI_CARDS = [
   },
   {
     id: "districts",
-    label: "Districts Covered",
-    value: "21 / 21",
+    label: "Municipalities Covered",
+    value: "7 / 7",
     change: "100%",
     up: true,
     sub: "full coverage",
@@ -75,26 +75,21 @@ const KPI_CARDS = [
 ];
 
 const AGE_GROUPS = [
-  { label: "0–14", count: 462757, pct: 14, color: "#3b82f6", icon: Baby },
-  { label: "15–24", count: 363595, pct: 11, color: "#8b5cf6", icon: GraduationCap },
-  { label: "25–44", count: 991622, pct: 30, color: "#1d4ed8", icon: Briefcase },
-  { label: "45–64", count: 826352, pct: 25, color: "#0891b2", icon: PersonStanding },
-  { label: "65+", count: 661082, pct: 20, color: "#7c3aed", icon: Users },
+  { label: "0–14", count: 21855, pct: 14, color: "#3b82f6", icon: Baby },
+  { label: "15–24", count: 17172, pct: 11, color: "#8b5cf6", icon: GraduationCap },
+  { label: "25–44", count: 46833, pct: 30, color: "#1d4ed8", icon: Briefcase },
+  { label: "45–64", count: 39028, pct: 25, color: "#0891b2", icon: PersonStanding },
+  { label: "65+", count: 31224, pct: 20, color: "#7c3aed", icon: Users },
 ];
 
 const DISTRICTS = [
-  { name: "Centro", pop: 143130, pct: 78, trend: "up" },
-  { name: "Arganzuela", pop: 155419, pct: 92, trend: "up" },
-  { name: "Retiro", pop: 120067, pct: 65, trend: "down" },
-  { name: "Salamanca", pop: 147683, pct: 84, trend: "up" },
-  { name: "Chamartín", pop: 147943, pct: 88, trend: "up" },
-  { name: "Tetuán", pop: 157171, pct: 71, trend: "down" },
-  { name: "Chamberí", pop: 139080, pct: 90, trend: "up" },
-  { name: "Fuencarral-El Pardo", pop: 247388, pct: 56, trend: "up" },
-  { name: "Moncloa-Aravaca", pop: 118869, pct: 83, trend: "up" },
-  { name: "Latina", pop: 239265, pct: 62, trend: "down" },
-  { name: "Carabanchel", pop: 255258, pct: 59, trend: "up" },
-  { name: "Usera", pop: 139643, pct: 74, trend: "up" },
+  { name: "Arrecife", pop: 64283, pct: 78, trend: "up" },
+  { name: "Teguise", pop: 23145, pct: 92, trend: "up" },
+  { name: "Tías", pop: 20108, pct: 85, trend: "down" },
+  { name: "San Bartolomé", pop: 19412, pct: 84, trend: "up" },
+  { name: "Yaiza", pop: 17244, pct: 90, trend: "up" },
+  { name: "Tinajo", pop: 6512, pct: 71, trend: "down" },
+  { name: "Haría", pop: 5408, pct: 83, trend: "up" },
 ];
 
 const CITIZENS_TABLE = [
@@ -320,7 +315,7 @@ export default function CitizensPage() {
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                       <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)" }}>
-                        {g.count.toLocaleString()}
+                        {g.count.toLocaleString("en-US")}
                       </span>
                       <span
                         style={{
@@ -395,7 +390,7 @@ export default function CitizensPage() {
                       {d.name}
                     </span>
                     <span style={{ fontSize: "12px", color: "var(--text-secondary)", fontWeight: 500 }}>
-                      {d.pop.toLocaleString()}
+                      {d.pop.toLocaleString("en-US")}
                     </span>
                   </div>
                   <div style={{ height: "4px", borderRadius: "100px", background: "rgba(226,232,240,0.6)" }}>

@@ -52,15 +52,15 @@ interface AudienceFilter {
 // ─── Filter Options ───────────────────────────────────────────────────────────
 
 const CITIZEN_FILTERS: Record<string, string[]> = {
-  District: ["Centro", "Salamanca", "Chamartín", "Arganzuela", "Chamberí", "Retiro", "Tetuán", "Fuencarral-El Pardo", "Moncloa-Aravaca", "Latina", "Carabanchel", "Usera"],
+  Municipality: ["Arrecife", "Teguise", "Tías", "San Bartolomé", "Yaiza", "Tinajo", "Haría"],
   "Age Group": ["18–24", "25–34", "35–44", "45–54", "55–64", "65+"],
   Gender: ["Male", "Female", "Other"],
   Status: ["Verified", "Pending", "Unverified"],
 };
 
 const BUSINESS_FILTERS: Record<string, string[]> = {
-  District: ["Centro", "Salamanca", "Chamartín", "Arganzuela", "Chamberí", "Retiro", "Tetuán", "Fuencarral-El Pardo", "Moncloa-Aravaca", "Latina", "Carabanchel", "Usera"],
-  Sector: ["Retail & Commerce", "Food & Hospitality", "Technology & Digital", "Professional Services", "Construction & Trade", "Healthcare & Wellness"],
+  Municipality: ["Arrecife", "Teguise", "Tías", "San Bartolomé", "Yaiza", "Tinajo", "Haría"],
+  Sector: ["Tourism & Hospitality", "Retail & Commerce", "Construction", "Agriculture & Fishing", "Technology & Other"],
   Size: ["Micro (1–5)", "Small (6–25)", "Medium (26–100)", "Large (100+)"],
   Status: ["Active", "Pending", "Suspended"],
 };
@@ -68,7 +68,7 @@ const BUSINESS_FILTERS: Record<string, string[]> = {
 // ─── Fake audience estimate ───────────────────────────────────────────────────
 
 function estimateAudience(type: AudienceType, filters: AudienceFilter[]): number {
-  const base = type === "citizens" ? 3305408 : 48392;
+  const base = type === "citizens" ? 156112 : 5089;
   if (filters.length === 0) return base;
   // Rough simulation
   let factor = 1;
@@ -88,10 +88,10 @@ const TEMPLATES = [
 // ─── Recent Campaigns ────────────────────────────────────────────────────────
 
 const RECENT_CAMPAIGNS = [
-  { id: 1, title: "Water Supply Maintenance Notice", type: "announcement", audience: "Citizens — Centro, Retiro", recipients: 263197, sent: "2 days ago", status: "delivered" },
-  { id: 2, title: "New Business Tax Policy Poll", type: "poll", audience: "Businesses — All Districts", recipients: 48392, sent: "5 days ago", status: "delivered" },
-  { id: 3, title: "Summer Festival Announcement", type: "announcement", audience: "Citizens — All Districts", recipients: 3305408, sent: "1 week ago", status: "delivered" },
-  { id: 4, title: "Street Cleaning Schedule Feedback", type: "poll", audience: "Citizens — Chamberí, Salamanca", recipients: 286763, sent: "2 weeks ago", status: "delivered" },
+  { id: 1, title: "Water Supply Notice - Timanfaya Area", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 23756, sent: "2 days ago", status: "delivered" },
+  { id: 2, title: "Tourism Sustainability Poll", type: "poll", audience: "Businesses — All Districts", recipients: 5089, sent: "5 days ago", status: "delivered" },
+  { id: 3, title: "Carnaval de Arrecife Schedule", type: "announcement", audience: "Citizens — All Districts", recipients: 156112, sent: "1 week ago", status: "delivered" },
+  { id: 4, title: "Beach Safety Feedback Poll", type: "poll", audience: "Citizens — Teguise, Tías", recipients: 43253, sent: "2 weeks ago", status: "delivered" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -640,7 +640,7 @@ export default function WhatsAppMessengerPage() {
 
             <div style={{ textAlign: "center", padding: "20px", borderRadius: "12px", background: audienceType === "citizens" ? "rgba(29,78,216,0.04)" : "rgba(124,58,237,0.04)", border: `1px solid ${audienceType === "citizens" ? "rgba(29,78,216,0.1)" : "rgba(124,58,237,0.1)"}`, marginBottom: "16px" }}>
               <p style={{ fontSize: "32px", fontWeight: 800, color: audienceType === "citizens" ? "#1d4ed8" : "#7c3aed", lineHeight: 1, letterSpacing: "-0.03em" }}>
-                {estimatedRecipients.toLocaleString()}
+                {estimatedRecipients.toLocaleString("en-US")}
               </p>
               <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "4px", fontWeight: 500 }}>
                 estimated recipients
@@ -726,7 +726,7 @@ export default function WhatsAppMessengerPage() {
                     <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.2 }}>{c.title}</span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginLeft: "20px" }}>
-                    <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{c.recipients.toLocaleString()} recipients</span>
+                    <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{c.recipients.toLocaleString("en-US")} recipients</span>
                     <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>•</span>
                     <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>{c.sent}</span>
                     <span style={{ fontSize: "10px", fontWeight: 700, color: "#059669", background: "rgba(5,150,105,0.08)", padding: "2px 6px", borderRadius: "100px", marginLeft: "auto" }}>

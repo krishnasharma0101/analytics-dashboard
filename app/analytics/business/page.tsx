@@ -80,27 +80,21 @@ const KPI_CARDS = [
 ];
 
 const SECTORS = [
-  { label: "Retail & Commerce", count: 12490, pct: 26, color: "#3b82f6", icon: ShoppingBag },
-  { label: "Food & Hospitality", count: 10844, pct: 22, color: "#f59e0b", icon: Utensils },
-  { label: "Technology & Digital", count: 7742, pct: 16, color: "#8b5cf6", icon: Laptop },
-  { label: "Professional Services", count: 6791, pct: 14, color: "#1d4ed8", icon: Paintbrush },
-  { label: "Construction & Trade", count: 5807, pct: 12, color: "#0891b2", icon: Wrench },
-  { label: "Healthcare & Wellness", count: 4718, pct: 10, color: "#059669", icon: HeartPulse },
+  { label: "Tourism & Hospitality", count: 4325, pct: 85, color: "#f59e0b", icon: Utensils },
+  { label: "Retail & Commerce", count: 447, pct: 8.8, color: "#3b82f6", icon: ShoppingBag },
+  { label: "Construction", count: 163, pct: 3.2, color: "#0891b2", icon: Wrench },
+  { label: "Agriculture & Fishing", count: 51, pct: 1, color: "#059669", icon: HeartPulse },
+  { label: "Technology & Other", count: 103, pct: 2, color: "#8b5cf6", icon: Laptop },
 ];
 
 const DISTRICT_REVENUE = [
-  { name: "Centro", revenue: 412, pct: 95, trend: "up" },
-  { name: "Salamanca", revenue: 387, pct: 89, trend: "up" },
-  { name: "Chamartín", revenue: 341, pct: 79, trend: "up" },
-  { name: "Chamberí", revenue: 298, pct: 69, trend: "up" },
-  { name: "Arganzuela", revenue: 267, pct: 62, trend: "down" },
-  { name: "Retiro", revenue: 243, pct: 56, trend: "up" },
-  { name: "Tetuán", revenue: 221, pct: 51, trend: "down" },
-  { name: "Moncloa-Aravaca", revenue: 198, pct: 46, trend: "up" },
-  { name: "Fuencarral-El Pardo", revenue: 176, pct: 41, trend: "up" },
-  { name: "Latina", revenue: 154, pct: 36, trend: "down" },
-  { name: "Carabanchel", revenue: 132, pct: 31, trend: "down" },
-  { name: "Usera", revenue: 118, pct: 27, trend: "up" },
+  { name: "Arrecife", revenue: 142, pct: 95, trend: "up" },
+  { name: "Teguise", revenue: 98, pct: 82, trend: "up" },
+  { name: "Tías", revenue: 92, pct: 78, trend: "up" },
+  { name: "San Bartolomé", revenue: 84, pct: 71, trend: "up" },
+  { name: "Yaiza", revenue: 76, pct: 64, trend: "up" },
+  { name: "Tinajo", citizens: 28, pct: 32, trend: "up" },
+  { name: "Haría", citizens: 20, pct: 24, trend: "up" },
 ];
 
 const BUSINESSES_TABLE = [
@@ -327,7 +321,7 @@ export default function BusinessAnalyticsPage() {
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                       <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-primary)" }}>
-                        {s.count.toLocaleString()}
+                        {s.count.toLocaleString("en-US")}
                       </span>
                       <span
                         style={{

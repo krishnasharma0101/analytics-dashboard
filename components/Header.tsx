@@ -14,10 +14,10 @@ export default function Header() {
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="h-5" />
         <div className="flex items-center gap-1.5">
-          <span className="text-sm font-bold text-foreground">City Hall</span>
+          <span className="text-sm font-extrabold text-orange-600 tracking-tight">CIUDADANIA</span>
           <span className="text-muted-foreground text-sm">/</span>
           <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-            Municipality of Madrid
+            Lanzarote Town Hall
           </span>
         </div>
       </div>
