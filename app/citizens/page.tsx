@@ -34,8 +34,8 @@ const KPI_CARDS = [
   {
     id: "total",
     label: "Total Records",
-    value: "3,305,408",
-    change: "+1.2%",
+    value: "163,467",
+    change: "+1.8%",
     up: true,
     sub: "in municipal database",
     icon: Users,
@@ -46,7 +46,7 @@ const KPI_CARDS = [
   {
     id: "verified",
     label: "Verified Citizens",
-    value: "2,891,204",
+    value: "142,810",
     change: "+3.4%",
     up: true,
     sub: "identity confirmed",
@@ -58,7 +58,7 @@ const KPI_CARDS = [
   {
     id: "new",
     label: "New Registrations",
-    value: "12,847",
+    value: "487",
     change: "+8.1%",
     up: true,
     sub: "this month",
@@ -70,7 +70,7 @@ const KPI_CARDS = [
   {
     id: "pending",
     label: "Pending Review",
-    value: "3,241",
+    value: "341",
     change: "-12.4%",
     up: false,
     sub: "awaiting verification",
@@ -91,40 +91,35 @@ const COLLECTION_PROGRESS = [
 ];
 
 const VERIFICATION_STATUS = [
-  { label: "Fully Verified", pct: 0.72, color: "#059669", count: "2,379,894" },
-  { label: "Partially Verified", pct: 0.15, color: "#f59e0b", count: "495,811" },
-  { label: "Unverified", pct: 0.09, color: "#dc2626", count: "297,487" },
-  { label: "Under Review", pct: 0.04, color: "#64748b", count: "132,216" },
+  { label: "Fully Verified", pct: 0.72, color: "#059669", count: "117,696" },
+  { label: "Partially Verified", pct: 0.15, color: "#f59e0b", count: "24,520" },
+  { label: "Unverified", pct: 0.09, color: "#dc2626", count: "14,712" },
+  { label: "Under Review", pct: 0.04, color: "#64748b", count: "6,539" },
 ];
 
 const DISTRICT_COLLECTION = [
-  { name: "Centro", total: 143130, collected: 139840, pct: 97.7, trend: "up" },
-  { name: "Salamanca", total: 147683, collected: 145070, pct: 98.2, trend: "up" },
-  { name: "Chamartín", total: 147943, collected: 143600, pct: 97.1, trend: "up" },
-  { name: "Arganzuela", total: 155419, collected: 150210, pct: 96.7, trend: "up" },
-  { name: "Chamberí", total: 139080, collected: 137260, pct: 98.7, trend: "up" },
-  { name: "Retiro", total: 120067, collected: 114060, pct: 95.0, trend: "down" },
-  { name: "Tetuán", total: 157171, collected: 148190, pct: 94.3, trend: "down" },
-  { name: "Fuencarral-El Pardo", total: 247388, collected: 230470, pct: 93.2, trend: "up" },
-  { name: "Moncloa-Aravaca", total: 118869, collected: 115290, pct: 97.0, trend: "up" },
-  { name: "Latina", total: 239265, collected: 222910, pct: 93.2, trend: "down" },
-  { name: "Carabanchel", total: 255258, collected: 237390, pct: 93.0, trend: "up" },
-  { name: "Usera", total: 139643, collected: 131260, pct: 94.0, trend: "up" },
+  { name: "Arrecife", total: 68169, collected: 66470, pct: 97.5, trend: "up" },
+  { name: "Teguise", total: 23848, collected: 23420, pct: 98.2, trend: "up" },
+  { name: "Tías", total: 21462, collected: 20820, pct: 97.0, trend: "up" },
+  { name: "San Bartolomé", total: 19443, collected: 18780, pct: 96.6, trend: "up" },
+  { name: "Yaiza", total: 18113, collected: 17770, pct: 98.1, trend: "up" },
+  { name: "Tinajo", total: 6865, collected: 6510, pct: 94.8, trend: "down" },
+  { name: "Haría", total: 5567, collected: 5340, pct: 95.9, trend: "up" },
 ];
 
 const CITIZENS_TABLE = [
-  { id: "CIT-230142", name: "Ana García López", email: "ana.garcia@mail.es", phone: "+34 612 345 678", district: "Salamanca", dob: "15/03/1990", gender: "F", status: "Verified", docs: 8, lastUpdate: "2 days ago" },
-  { id: "CIT-230219", name: "Carlos Martínez Ruiz", email: "carlos.mtz@mail.es", phone: "+34 623 456 789", district: "Chamartín", dob: "22/07/1972", gender: "M", status: "Verified", docs: 12, lastUpdate: "1 week ago" },
-  { id: "CIT-230387", name: "María Fernández Gil", email: "maria.fg@mail.es", phone: "+34 634 567 890", district: "Centro", dob: "08/11/1996", gender: "F", status: "Verified", docs: 6, lastUpdate: "5 days ago" },
-  { id: "CIT-230412", name: "Luis Sánchez Moreno", email: "luis.sm@mail.es", phone: "+34 645 678 901", district: "Retiro", dob: "19/04/1957", gender: "M", status: "Unverified", docs: 3, lastUpdate: "3 months ago" },
-  { id: "CIT-230531", name: "Patricia Jiménez Vega", email: "patricia.jv@mail.es", phone: "+34 656 789 012", district: "Chamberí", dob: "30/09/1983", gender: "F", status: "Verified", docs: 10, lastUpdate: "3 days ago" },
-  { id: "CIT-230608", name: "David López Castillo", email: "david.lc@mail.es", phone: "+34 667 890 123", district: "Arganzuela", dob: "14/06/2001", gender: "M", status: "Pending", docs: 2, lastUpdate: "Today" },
-  { id: "CIT-230774", name: "Sofía Romero Blanco", email: "sofia.rb@mail.es", phone: "+34 678 901 234", district: "Tetuán", dob: "03/12/1969", gender: "F", status: "Verified", docs: 9, lastUpdate: "1 week ago" },
-  { id: "CIT-230821", name: "Miguel Torres Muñoz", email: "miguel.tm@mail.es", phone: "+34 689 012 345", district: "Latina", dob: "27/01/1986", gender: "M", status: "Verified", docs: 7, lastUpdate: "4 days ago" },
-  { id: "CIT-230956", name: "Laura Pérez Serrano", email: "laura.ps@mail.es", phone: "+34 690 123 456", district: "Usera", dob: "11/08/1994", gender: "F", status: "Verified", docs: 5, lastUpdate: "6 days ago" },
-  { id: "CIT-231034", name: "Javier Álvarez Díaz", email: "javier.ad@mail.es", phone: "+34 601 234 567", district: "Carabanchel", dob: "05/05/1979", gender: "M", status: "Unverified", docs: 4, lastUpdate: "2 months ago" },
-  { id: "CIT-231102", name: "Elena Gutiérrez Molina", email: "elena.gm@mail.es", phone: "+34 612 345 000", district: "Moncloa-Aravaca", dob: "20/02/1962", gender: "F", status: "Verified", docs: 11, lastUpdate: "2 weeks ago" },
-  { id: "CIT-231247", name: "Pablo Castro Navarro", email: "pablo.cn@mail.es", phone: "+34 623 456 111", district: "Fuencarral-El Pardo", dob: "16/10/2005", gender: "M", status: "Pending", docs: 1, lastUpdate: "Today" },
+  { id: "CIT-240142", name: "María del Carmen Betancort", email: "mcarmen.b@mail.es", phone: "+34 612 345 678", district: "Arrecife", dob: "15/03/1990", gender: "F", status: "Verified", docs: 8, lastUpdate: "2 days ago" },
+  { id: "CIT-240219", name: "José Ramón Cabrera", email: "jramon.c@mail.es", phone: "+34 623 456 789", district: "Teguise", dob: "22/07/1972", gender: "M", status: "Verified", docs: 12, lastUpdate: "1 week ago" },
+  { id: "CIT-240387", name: "Carmen Rosa Perdomo", email: "crosa.p@mail.es", phone: "+34 634 567 890", district: "Tías", dob: "08/11/1996", gender: "F", status: "Verified", docs: 6, lastUpdate: "5 days ago" },
+  { id: "CIT-240412", name: "Francisco Javier Corujo", email: "fj.corujo@mail.es", phone: "+34 645 678 901", district: "Arrecife", dob: "19/04/1957", gender: "M", status: "Unverified", docs: 3, lastUpdate: "3 months ago" },
+  { id: "CIT-240531", name: "Dolores Cabrera Fernández", email: "dolores.cf@mail.es", phone: "+34 656 789 012", district: "Yaiza", dob: "30/09/1983", gender: "F", status: "Verified", docs: 10, lastUpdate: "3 days ago" },
+  { id: "CIT-240608", name: "Óscar Armas Betancort", email: "oscar.ab@mail.es", phone: "+34 667 890 123", district: "San Bartolomé", dob: "14/06/2001", gender: "M", status: "Pending", docs: 2, lastUpdate: "Today" },
+  { id: "CIT-240774", name: "Macarena Perdomo Díaz", email: "macarena.pd@mail.es", phone: "+34 678 901 234", district: "Tinajo", dob: "03/12/1969", gender: "F", status: "Verified", docs: 9, lastUpdate: "1 week ago" },
+  { id: "CIT-240821", name: "Alejandro Torres Cabrera", email: "alejandro.tc@mail.es", phone: "+34 689 012 345", district: "Arrecife", dob: "27/01/1986", gender: "M", status: "Verified", docs: 7, lastUpdate: "4 days ago" },
+  { id: "CIT-240956", name: "Nayara Betancort Mendoza", email: "nayara.bm@mail.es", phone: "+34 690 123 456", district: "Haría", dob: "11/08/1994", gender: "F", status: "Verified", docs: 5, lastUpdate: "6 days ago" },
+  { id: "CIT-241034", name: "Pedro Luis Robayna Cruz", email: "pl.robayna@mail.es", phone: "+34 601 234 567", district: "Teguise", dob: "05/05/1979", gender: "M", status: "Unverified", docs: 4, lastUpdate: "2 months ago" },
+  { id: "CIT-241102", name: "Candelaria Armas Perdomo", email: "candelaria.ap@mail.es", phone: "+34 612 345 000", district: "Arrecife", dob: "20/02/1962", gender: "F", status: "Verified", docs: 11, lastUpdate: "2 weeks ago" },
+  { id: "CIT-241247", name: "Aarón Cabrera Morales", email: "aaron.cm@mail.es", phone: "+34 623 456 111", district: "San Bartolomé", dob: "16/10/2005", gender: "M", status: "Pending", docs: 1, lastUpdate: "Today" },
 ];
 
 const TABS = ["all", "verified", "pending", "unverified"];

@@ -44,8 +44,8 @@ const KPI_CARDS = [
   {
     id: "citizens",
     label: "Total Citizens",
-    value: "156,112",
-    change: "+1.2%",
+    value: "163,467",
+    change: "+1.8%",
     up: true,
     sub: "census registered",
     icon: Users,
@@ -84,7 +84,7 @@ const KPI_CARDS = [
     id: "tourists",
     label: "Annual Tourists",
     value: "3.41M",
-    change: "+10.5%",
+    change: "+6.1%",
     up: true,
     sub: "by air & cruise",
     icon: FileBadge,
@@ -112,17 +112,17 @@ const MONTHLY_TREND = [
 ];
 
 const DISTRICT_OVERVIEW = [
-  { name: "Arrecife", citizens: 64283, businesses: 1842, satisfaction: 87 },
-  { name: "Teguise", citizens: 23145, businesses: 823, satisfaction: 90 },
-  { name: "Tías", citizens: 20108, businesses: 790, satisfaction: 88 },
-  { name: "San Bartolomé", citizens: 19412, businesses: 610, satisfaction: 84 },
-  { name: "Yaiza", citizens: 17244, businesses: 520, satisfaction: 92 },
-  { name: "Tinajo", citizens: 6512, businesses: 250, satisfaction: 89 },
-  { name: "Haría", citizens: 5408, businesses: 254, satisfaction: 91 },
+  { name: "Arrecife", citizens: 68169, businesses: 1842, satisfaction: 87 },
+  { name: "Teguise", citizens: 23848, businesses: 823, satisfaction: 90 },
+  { name: "Tías", citizens: 21462, businesses: 790, satisfaction: 88 },
+  { name: "San Bartolomé", citizens: 19443, businesses: 610, satisfaction: 84 },
+  { name: "Yaiza", citizens: 18113, businesses: 520, satisfaction: 92 },
+  { name: "Tinajo", citizens: 6865, businesses: 250, satisfaction: 89 },
+  { name: "Haría", citizens: 5567, businesses: 254, satisfaction: 91 },
 ];
 
 const RECENT_CAMPAIGNS = [
-  { id: 1, title: "Water Notice - Timanfaya", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 23756, sent: "2d ago", status: "delivered" },
+  { id: 1, title: "Water Notice - Timanfaya", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 24978, sent: "2d ago", status: "delivered" },
   { id: 2, title: "Tourism Sustainability", type: "poll", audience: "Businesses", recipients: 5089, sent: "5d ago", status: "delivered" },
 ];
 

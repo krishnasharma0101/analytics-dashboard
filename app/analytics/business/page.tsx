@@ -33,7 +33,7 @@ const KPI_CARDS = [
   {
     id: "total",
     label: "Total Businesses",
-    value: "48,392",
+    value: "5,089",
     change: "+4.7%",
     up: true,
     sub: "vs last year",
@@ -45,7 +45,7 @@ const KPI_CARDS = [
   {
     id: "revenue",
     label: "Total Revenue",
-    value: "€2.4B",
+    value: "€540M",
     change: "+6.2%",
     up: true,
     sub: "annual estimate",
@@ -57,7 +57,7 @@ const KPI_CARDS = [
   {
     id: "licenses",
     label: "Active Licenses",
-    value: "41,208",
+    value: "4,850",
     change: "+2.1%",
     up: true,
     sub: "currently valid",
@@ -69,7 +69,7 @@ const KPI_CARDS = [
   {
     id: "new",
     label: "New Registrations",
-    value: "2,847",
+    value: "183",
     change: "-1.3%",
     up: false,
     sub: "this quarter",
@@ -89,28 +89,28 @@ const SECTORS = [
 ];
 
 const DISTRICT_REVENUE = [
-  { name: "Arrecife", revenue: 142, pct: 95, trend: "up" },
-  { name: "Teguise", revenue: 98, pct: 82, trend: "up" },
-  { name: "Tías", revenue: 92, pct: 78, trend: "up" },
-  { name: "San Bartolomé", revenue: 84, pct: 71, trend: "up" },
-  { name: "Yaiza", revenue: 76, pct: 64, trend: "up" },
-  { name: "Tinajo", citizens: 28, pct: 32, trend: "up" },
-  { name: "Haría", citizens: 20, pct: 24, trend: "up" },
+  { name: "Arrecife", revenue: 185, pct: 95, trend: "up" },
+  { name: "Teguise", revenue: 118, pct: 82, trend: "up" },
+  { name: "Tías", revenue: 95, pct: 78, trend: "up" },
+  { name: "San Bartolomé", revenue: 62, pct: 71, trend: "up" },
+  { name: "Yaiza", revenue: 48, pct: 64, trend: "up" },
+  { name: "Tinajo", revenue: 18, pct: 32, trend: "up" },
+  { name: "Haría", revenue: 14, pct: 24, trend: "up" },
 ];
 
 const BUSINESSES_TABLE = [
-  { id: "B-10042", name: "Café Sol Madrid", sector: "Food & Hospitality", district: "Centro", revenue: "€284K", employees: 12, status: "Active", license: "15 Jan 2024" },
-  { id: "B-10187", name: "TechHub Ibérica S.L.", sector: "Technology & Digital", district: "Chamartín", revenue: "€1.2M", employees: 45, status: "Active", license: "8 Mar 2023" },
-  { id: "B-10334", name: "Farmacia Goya", sector: "Healthcare & Wellness", district: "Salamanca", revenue: "€520K", employees: 8, status: "Active", license: "22 Jun 2022" },
-  { id: "B-10471", name: "Modas Castilla", sector: "Retail & Commerce", district: "Chamberí", revenue: "€198K", employees: 6, status: "Active", license: "3 Sep 2024" },
-  { id: "B-10598", name: "Construmad Obras", sector: "Construction & Trade", district: "Arganzuela", revenue: "€890K", employees: 32, status: "Active", license: "17 Apr 2023" },
-  { id: "B-10723", name: "Estudio Creativo Luna", sector: "Professional Services", district: "Retiro", revenue: "€145K", employees: 4, status: "Pending", license: "28 Feb 2025" },
-  { id: "B-10891", name: "Restaurante El Rincón", sector: "Food & Hospitality", district: "Latina", revenue: "€410K", employees: 18, status: "Active", license: "11 Nov 2023" },
-  { id: "B-11024", name: "DataVista Analytics", sector: "Technology & Digital", district: "Moncloa-Aravaca", revenue: "€2.1M", employees: 67, status: "Active", license: "5 Jul 2024" },
-  { id: "B-11167", name: "Supermercados Luna", sector: "Retail & Commerce", district: "Carabanchel", revenue: "€780K", employees: 24, status: "Active", license: "20 Jan 2023" },
-  { id: "B-11302", name: "Clínica Dental Sonrisa", sector: "Healthcare & Wellness", district: "Tetuán", revenue: "€340K", employees: 11, status: "Suspended", license: "14 Aug 2022" },
-  { id: "B-11448", name: "Fontanería Rápida", sector: "Construction & Trade", district: "Usera", revenue: "€95K", employees: 3, status: "Active", license: "6 May 2024" },
-  { id: "B-11573", name: "Abogados Martín & Co.", sector: "Professional Services", district: "Fuencarral-El Pardo", revenue: "€560K", employees: 14, status: "Pending", license: "1 Mar 2025" },
+  { id: "B-24042", name: "Bodegas La Geria S.L.", sector: "Agriculture & Fishing", district: "Teguise", revenue: "€380K", employees: 14, status: "Active", license: "15 Jan 2024" },
+  { id: "B-24187", name: "Hotel Arrecife Gran", sector: "Tourism & Hospitality", district: "Arrecife", revenue: "€1.8M", employees: 52, status: "Active", license: "8 Mar 2023" },
+  { id: "B-24334", name: "Farmacia Cabrera", sector: "Healthcare & Wellness", district: "Arrecife", revenue: "€420K", employees: 6, status: "Active", license: "22 Jun 2022" },
+  { id: "B-24471", name: "Surf School Famara", sector: "Tourism & Hospitality", district: "Teguise", revenue: "€145K", employees: 8, status: "Active", license: "3 Sep 2024" },
+  { id: "B-24598", name: "Construcciones Manrique", sector: "Construction & Trade", district: "Tías", revenue: "€720K", employees: 28, status: "Active", license: "17 Apr 2023" },
+  { id: "B-24723", name: "Tienda Aloe Lanzarote", sector: "Retail & Commerce", district: "Yaiza", revenue: "€95K", employees: 4, status: "Pending", license: "28 Feb 2025" },
+  { id: "B-24891", name: "Restaurante Casa Pepe", sector: "Food & Hospitality", district: "Arrecife", revenue: "€310K", employees: 15, status: "Active", license: "11 Nov 2023" },
+  { id: "B-25024", name: "Lanzarote Tech Hub S.L.", sector: "Technology & Digital", district: "Arrecife", revenue: "€890K", employees: 22, status: "Active", license: "5 Jul 2024" },
+  { id: "B-25167", name: "Supermercado HiperDino", sector: "Retail & Commerce", district: "San Bartolomé", revenue: "€2.1M", employees: 35, status: "Active", license: "20 Jan 2023" },
+  { id: "B-25302", name: "Clínica Dental Arrecife", sector: "Healthcare & Wellness", district: "Arrecife", revenue: "€280K", employees: 9, status: "Suspended", license: "14 Aug 2022" },
+  { id: "B-25448", name: "Fontanería Rápida Lanz", sector: "Construction & Trade", district: "Tinajo", revenue: "€75K", employees: 3, status: "Active", license: "6 May 2024" },
+  { id: "B-25573", name: "Despacho Jurídico Isla", sector: "Professional Services", district: "Arrecife", revenue: "€340K", employees: 7, status: "Pending", license: "1 Mar 2025" },
 ];
 
 const TABS = ["all", "active", "pending", "suspended"];
@@ -450,43 +450,43 @@ export default function BusinessAnalyticsPage() {
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "24px" }}>
             <div style={{ position: "relative", width: "160px", height: "160px" }}>
               <svg viewBox="0 0 160 160" style={{ width: "100%", height: "100%", transform: "rotate(-90deg)" }}>
-                {/* Micro (1-5) 42% */}
+                {/* Micro (1-5) 68% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#3b82f6"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.42} ${2 * Math.PI * 60}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.68} ${2 * Math.PI * 60}`}
                   strokeLinecap="round"
                 />
-                {/* Small (6-25) 31% */}
+                {/* Small (6-25) 22% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#7c3aed"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.31} ${2 * Math.PI * 60}`}
-                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.42}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.22} ${2 * Math.PI * 60}`}
+                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.68}`}
                   strokeLinecap="round"
                 />
-                {/* Medium (26-100) 18% */}
+                {/* Medium (26-100) 8% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#0891b2"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.18} ${2 * Math.PI * 60}`}
-                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.73}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.08} ${2 * Math.PI * 60}`}
+                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.90}`}
                   strokeLinecap="round"
                 />
-                {/* Large (100+) 9% */}
+                {/* Large (100+) 2% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#f59e0b"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.09} ${2 * Math.PI * 60}`}
-                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.91}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.02} ${2 * Math.PI * 60}`}
+                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.98}`}
                   strokeLinecap="round"
                 />
               </svg>
@@ -496,7 +496,7 @@ export default function BusinessAnalyticsPage() {
                 display: "flex", flexDirection: "column",
                 alignItems: "center", justifyContent: "center",
               }}>
-                <p style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>48.4K</p>
+                <p style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>5,089</p>
                 <p style={{ fontSize: "10px", color: "var(--text-muted)", fontWeight: 500 }}>Total</p>
               </div>
             </div>
@@ -505,10 +505,10 @@ export default function BusinessAnalyticsPage() {
           {/* Legend */}
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {[
-              { label: "Micro (1–5)", pct: "42%", color: "#3b82f6", count: "20,325" },
-              { label: "Small (6–25)", pct: "31%", color: "#7c3aed", count: "15,002" },
-              { label: "Medium (26–100)", pct: "18%", color: "#0891b2", count: "8,711" },
-              { label: "Large (100+)", pct: "9%", color: "#f59e0b", count: "4,354" },
+              { label: "Micro (1–5)", pct: "68%", color: "#3b82f6", count: "3,460" },
+              { label: "Small (6–25)", pct: "22%", color: "#7c3aed", count: "1,120" },
+              { label: "Medium (26–100)", pct: "8%", color: "#0891b2", count: "407" },
+              { label: "Large (100+)", pct: "2%", color: "#f59e0b", count: "102" },
             ].map((g) => (
               <div key={g.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

@@ -28,8 +28,8 @@ const KPI_CARDS = [
   {
     id: "total",
     label: "Total Citizens",
-    value: "156,112",
-    change: "+1.2%",
+    value: "163,467",
+    change: "+1.8%",
     up: true,
     sub: "vs last year",
     icon: Users,
@@ -40,7 +40,7 @@ const KPI_CARDS = [
   {
     id: "registered",
     label: "Registered Users",
-    value: "128,401",
+    value: "142,810",
     change: "+3.4%",
     up: true,
     sub: "vs last month",
@@ -52,7 +52,7 @@ const KPI_CARDS = [
   {
     id: "new",
     label: "New This Month",
-    value: "412",
+    value: "487",
     change: "+8.1%",
     up: true,
     sub: "vs previous month",
@@ -76,36 +76,36 @@ const KPI_CARDS = [
 ];
 
 const AGE_GROUPS = [
-  { label: "0–14", count: 21855, pct: 14, color: "#3b82f6", icon: Baby },
-  { label: "15–24", count: 17172, pct: 11, color: "#8b5cf6", icon: GraduationCap },
-  { label: "25–44", count: 46833, pct: 30, color: "#1d4ed8", icon: Briefcase },
-  { label: "45–64", count: 39028, pct: 25, color: "#0891b2", icon: PersonStanding },
-  { label: "65+", count: 31224, pct: 20, color: "#7c3aed", icon: Users },
+  { label: "0–14", count: 22885, pct: 14, color: "#3b82f6", icon: Baby },
+  { label: "15–24", count: 17981, pct: 11, color: "#8b5cf6", icon: GraduationCap },
+  { label: "25–44", count: 49040, pct: 30, color: "#1d4ed8", icon: Briefcase },
+  { label: "45–64", count: 40867, pct: 25, color: "#0891b2", icon: PersonStanding },
+  { label: "65+", count: 32694, pct: 20, color: "#7c3aed", icon: Users },
 ];
 
 const DISTRICTS = [
-  { name: "Arrecife", pop: 64283, pct: 78, trend: "up" },
-  { name: "Teguise", pop: 23145, pct: 92, trend: "up" },
-  { name: "Tías", pop: 20108, pct: 85, trend: "down" },
-  { name: "San Bartolomé", pop: 19412, pct: 84, trend: "up" },
-  { name: "Yaiza", pop: 17244, pct: 90, trend: "up" },
-  { name: "Tinajo", pop: 6512, pct: 71, trend: "down" },
-  { name: "Haría", pop: 5408, pct: 83, trend: "up" },
+  { name: "Arrecife", pop: 68169, pct: 78, trend: "up" },
+  { name: "Teguise", pop: 23848, pct: 92, trend: "up" },
+  { name: "Tías", pop: 21462, pct: 85, trend: "down" },
+  { name: "San Bartolomé", pop: 19443, pct: 84, trend: "up" },
+  { name: "Yaiza", pop: 18113, pct: 90, trend: "up" },
+  { name: "Tinajo", pop: 6865, pct: 71, trend: "down" },
+  { name: "Haría", pop: 5567, pct: 83, trend: "up" },
 ];
 
 const CITIZENS_TABLE = [
-  { id: "C-00142", name: "Ana García López", district: "Salamanca", age: 34, status: "Active", registered: "12 Jan 2024" },
-  { id: "C-00219", name: "Carlos Martínez Ruiz", district: "Chamartín", age: 52, status: "Active", registered: "5 Mar 2023" },
-  { id: "C-00387", name: "María Fernández Gil", district: "Centro", age: 28, status: "Active", registered: "19 Sep 2024" },
-  { id: "C-00412", name: "Luis Sánchez Moreno", district: "Retiro", age: 67, status: "Inactive", registered: "2 Jun 2022" },
-  { id: "C-00531", name: "Patricia Jiménez Vega", district: "Chamberí", age: 41, status: "Active", registered: "28 Nov 2023" },
-  { id: "C-00608", name: "David López Castillo", district: "Arganzuela", age: 23, status: "Pending", registered: "1 Feb 2025" },
-  { id: "C-00774", name: "Sofía Romero Blanco", district: "Tetuán", age: 55, status: "Active", registered: "17 Apr 2023" },
-  { id: "C-00821", name: "Miguel Torres Muñoz", district: "Latina", age: 38, status: "Active", registered: "8 Jul 2024" },
-  { id: "C-00956", name: "Laura Pérez Serrano", district: "Usera", age: 30, status: "Active", registered: "22 Oct 2024" },
-  { id: "C-01034", name: "Javier Álvarez Díaz", district: "Carabanchel", age: 45, status: "Inactive", registered: "3 Jan 2023" },
-  { id: "C-01102", name: "Elena Gutiérrez Molina", district: "Moncloa-Aravaca", age: 62, status: "Active", registered: "14 May 2022" },
-  { id: "C-01247", name: "Pablo Castro Navarro", district: "Fuencarral-El Pardo", age: 19, status: "Pending", registered: "10 Mar 2025" },
+  { id: "C-24142", name: "María del Carmen Betancort", district: "Arrecife", age: 34, status: "Active", registered: "12 Jan 2024" },
+  { id: "C-24219", name: "José Ramón Cabrera", district: "Teguise", age: 52, status: "Active", registered: "5 Mar 2023" },
+  { id: "C-24387", name: "Carmen Rosa Perdomo", district: "Tías", age: 28, status: "Active", registered: "19 Sep 2024" },
+  { id: "C-24412", name: "Francisco Javier Corujo", district: "Arrecife", age: 67, status: "Inactive", registered: "2 Jun 2022" },
+  { id: "C-24531", name: "Dolores Cabrera Fernández", district: "Yaiza", age: 41, status: "Active", registered: "28 Nov 2023" },
+  { id: "C-24608", name: "Óscar Armas Betancort", district: "San Bartolomé", age: 23, status: "Pending", registered: "1 Feb 2025" },
+  { id: "C-24774", name: "Macarena Perdomo Díaz", district: "Tinajo", age: 55, status: "Active", registered: "17 Apr 2023" },
+  { id: "C-24821", name: "Alejandro Torres Cabrera", district: "Arrecife", age: 38, status: "Active", registered: "8 Jul 2024" },
+  { id: "C-24956", name: "Nayara Betancort Mendoza", district: "Haría", age: 30, status: "Active", registered: "6 Oct 2024" },
+  { id: "C-25034", name: "Pedro Luis Robayna Cruz", district: "Teguise", age: 45, status: "Inactive", registered: "3 Jan 2023" },
+  { id: "C-25102", name: "Candelaria Armas Perdomo", district: "Arrecife", age: 62, status: "Active", registered: "14 May 2022" },
+  { id: "C-25247", name: "Aarón Cabrera Morales", district: "San Bartolomé", age: 19, status: "Pending", registered: "10 Mar 2025" },
 ];
 
 const TABS = ["all", "active", "inactive", "pending"];
@@ -444,33 +444,23 @@ export default function CitizensPage() {
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "24px" }}>
             <div style={{ position: "relative", width: "160px", height: "160px" }}>
               <svg viewBox="0 0 160 160" style={{ width: "100%", height: "100%", transform: "rotate(-90deg)" }}>
-                {/* Female 52% */}
+                {/* Female 49.2% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#7c3aed"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.52} ${2 * Math.PI * 60}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.49} ${2 * Math.PI * 60}`}
                   strokeLinecap="round"
                 />
-                {/* Male 46% */}
+                {/* Male 50.8% */}
                 <circle
                   cx="80" cy="80" r="60"
                   fill="none"
                   stroke="#1d4ed8"
                   strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.46} ${2 * Math.PI * 60}`}
-                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.52}`}
-                  strokeLinecap="round"
-                />
-                {/* Other 2% */}
-                <circle
-                  cx="80" cy="80" r="60"
-                  fill="none"
-                  stroke="#22d3ee"
-                  strokeWidth="22"
-                  strokeDasharray={`${2 * Math.PI * 60 * 0.02} ${2 * Math.PI * 60}`}
-                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.98}`}
+                  strokeDasharray={`${2 * Math.PI * 60 * 0.51} ${2 * Math.PI * 60}`}
+                  strokeDashoffset={`-${2 * Math.PI * 60 * 0.49}`}
                   strokeLinecap="round"
                 />
               </svg>
@@ -480,7 +470,7 @@ export default function CitizensPage() {
                 display: "flex", flexDirection: "column",
                 alignItems: "center", justifyContent: "center",
               }}>
-                <p style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>3.3M</p>
+                <p style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>163.5K</p>
                 <p style={{ fontSize: "10px", color: "var(--text-muted)", fontWeight: 500 }}>Total</p>
               </div>
             </div>
@@ -489,9 +479,8 @@ export default function CitizensPage() {
           {/* Legend */}
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {[
-              { label: "Female", pct: "52%", color: "#7c3aed", count: "1,718,812" },
-              { label: "Male", pct: "46%", color: "#1d4ed8", count: "1,520,488" },
-              { label: "Other", pct: "2%", color: "#22d3ee", count: "66,108" },
+              { label: "Female", pct: "49%", color: "#7c3aed", count: "80,426" },
+              { label: "Male", pct: "51%", color: "#1d4ed8", count: "83,041" },
             ].map((g) => (
               <div key={g.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

@@ -41,11 +41,11 @@ export default function SettingsPage() {
   const [profileForm, setProfileForm] = useState({
     firstName: "Admin",
     lastName: "Mayor",
-    email: "admin@madrid.gov.es",
-    phone: "+34 912 345 678",
+    email: "admin@lanzarote.gov.es",
+    phone: "+34 928 801 000",
     role: "System Administrator",
     department: "Municipal Analytics",
-    city: "Madrid",
+    city: "Arrecife, Lanzarote",
   });
 
   // Appearance state
@@ -379,7 +379,7 @@ export default function SettingsPage() {
                           appearance: "auto",
                         }}
                       >
-                        <option>Europe/Madrid (CET)</option>
+                        <option>Atlantic/Canary (WET)</option>
                         <option>Europe/London (GMT)</option>
                         <option>America/New_York (EST)</option>
                         <option>Asia/Tokyo (JST)</option>
@@ -567,8 +567,8 @@ export default function SettingsPage() {
                 </h2>
 
                 {[
-                  { device: "Windows Desktop", browser: "Chrome 122", ip: "192.168.1.42", location: "Madrid, ES", current: true, time: "Now" },
-                  { device: "iPhone 15 Pro", browser: "Safari 17", ip: "10.0.0.23", location: "Madrid, ES", current: false, time: "2 hours ago" },
+                  { device: "Windows Desktop", browser: "Chrome 122", ip: "192.168.1.42", location: "Arrecife, Lanzarote", current: true, time: "Now" },
+                  { device: "iPhone 15 Pro", browser: "Safari 17", ip: "10.0.0.23", location: "Arrecife, Lanzarote", current: false, time: "2 hours ago" },
                 ].map((s, i) => (
                   <div
                     key={i}

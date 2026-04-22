@@ -69,7 +69,7 @@ const BUSINESS_FILTERS: Record<string, string[]> = {
 // ─── Fake audience estimate ───────────────────────────────────────────────────
 
 function estimateAudience(type: AudienceType, filters: AudienceFilter[]): number {
-  const base = type === "citizens" ? 156112 : 5089;
+  const base = type === "citizens" ? 163467 : 5089;
   if (filters.length === 0) return base;
   // Rough simulation
   let factor = 1;
@@ -89,10 +89,10 @@ const TEMPLATES = [
 // ─── Recent Campaigns ────────────────────────────────────────────────────────
 
 const RECENT_CAMPAIGNS = [
-  { id: 1, title: "Water Supply Notice - Timanfaya Area", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 23756, sent: "2 days ago", status: "delivered" },
+  { id: 1, title: "Water Supply Notice - Timanfaya Area", type: "announcement", audience: "Citizens — Yaiza, Tinajo", recipients: 24978, sent: "2 days ago", status: "delivered" },
   { id: 2, title: "Tourism Sustainability Poll", type: "poll", audience: "Businesses — All Districts", recipients: 5089, sent: "5 days ago", status: "delivered" },
-  { id: 3, title: "Carnaval de Arrecife Schedule", type: "announcement", audience: "Citizens — All Districts", recipients: 156112, sent: "1 week ago", status: "delivered" },
-  { id: 4, title: "Beach Safety Feedback Poll", type: "poll", audience: "Citizens — Teguise, Tías", recipients: 43253, sent: "2 weeks ago", status: "delivered" },
+  { id: 3, title: "Carnaval de Arrecife Schedule", type: "announcement", audience: "Citizens — All Districts", recipients: 163467, sent: "1 week ago", status: "delivered" },
+  { id: 4, title: "Beach Safety Feedback Poll", type: "poll", audience: "Citizens — Teguise, Tías", recipients: 45310, sent: "2 weeks ago", status: "delivered" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
